@@ -180,6 +180,9 @@ if key in results:
 fig.suptitle("Triangle-inequality violation in the free-energy geometry "
              f"(Cartesian identity, det={DET}, uniform prior)")
 fig.tight_layout()
+fig.savefig(Path(__file__).parent / "figs" / "F-triangle-violation.png"
+            if "__file__" in dir() else "figs/F-triangle-violation.png",
+            dpi=150, bbox_inches="tight")
 plt.show()
 
 # %%
