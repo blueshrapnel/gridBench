@@ -234,3 +234,123 @@ if key in results:
 #   the twist REDUCE the violating fraction (absorbing segmentation into
 #   the labelling) or exploit it?  (ii) epsilon-infodesic gap version
 #   (normalised by direct cost) for cross-env comparability.
+
+# %% [markdown]
+# ## The twist side: does the exemplar absorb the segmentation?
+#
+# Everything above measures the Cartesian geometry.  The infodesic claim
+# wants the twist-side version: if the evolved twist internalises route
+# structure into the labelling (notebook 05: switches/step 0.374 -> 0.224),
+# the twisted world's free-energy geometry should offer FEWER profitable
+# segmentation points -- the violating fraction should drop, because the
+# twist has already paid for the segmentation inside sigma.
+
+# %%
+import pickle
+
+EXEMPLAR_HASH_PREFIX = "0e5cb0bf"   # paper-1 four_rooms exemplar (cov 0.85)
+SCHEMA_EXPORT = Path("/media/merlin/grid-twist/data-schema-10/multi/schema10-export")
+
+
+def load_exemplar_sigma():
+    root = SCHEMA_EXPORT / "shape=7x7" / "env_id=four_rooms"
+    for p in sorted(root.rglob("*.pickle")):
+        blob = pickle.load(open(p, "rb"))
+        prov = blob.get("provenance", {}) if isinstance(blob.get("provenance"), dict) else {}
+        if str(prov.get("sigma_hash", "")).startswith(EXEMPLAR_HASH_PREFIX):
+            return np.asarray(blob["sigma"], dtype=int)
+    raise FileNotFoundError(EXEMPLAR_HASH_PREFIX)
+
+
+def d_matrix_sigma(env_id, beta, sigma):
+    def build(goal):
+        cfg = EvalConfig(env_id=env_id, shape=SHAPE, goal=int(goal), beta=beta,
+                         determinism=DET, manhattan=True, theta=THETA,
+                         state_dist="uniform")
+        return build_twisted_env_from_sigma(sigma, cfg)
+    env0 = build(0)
+    goals = [int(s) for s in env0.available_states]
+    n = len(goals)
+    D = np.zeros((n, n))
+    for j, g in enumerate(goals):
+        env = build(g)
+        di = DecisionInformation(env, _state_dist_class("uniform")(env), THETA,
+                                 max_iterations=200_000,
+                                 max_info_iterations=10_000)
+        _, _, F = di.get_opt_policy_Z_free_vector(beta)
+        assert di.converged, (env_id, beta, g)
+        D[:, j] = np.asarray(F, dtype=float)[goals]
+    np.fill_diagonal(D, 0.0)
+    return D, goals
+
+
+sigma_ex = load_exemplar_sigma()
+print("condition        beta  viol     pairs-w-midpoint  max-gap   mean-direct-F")
+for beta in BETAS:
+    D_tw, goals_tw = d_matrix_sigma("four_rooms", beta, sigma_ex)
+    st_tw = triangle_stats(D_tw)
+    st_ca = results[("four_rooms", beta)]
+    for name, st, D in (("cartesian", st_ca, None), ("GA exemplar", st_tw, D_tw)):
+        gaps = st["gaps"]
+        mean_d = float(D[D > 0].mean()) if D is not None else float("nan")
+        print(f"four_rooms {name:11s} {beta:<4} {st['frac']:6.1%}  "
+              f"{st['n_pairs_violating']:4d}/{st['n_pairs']}        "
+              f"{gaps.max():6.3f}    {mean_d:.2f}")
+
+# midpoint map comparison at beta = 1
+D_tw, goals_tw = d_matrix_sigma("four_rooms", 1.0, sigma_ex)
+st_tw = triangle_stats(D_tw)
+fig, axes = plt.subplots(1, 2, figsize=(10.2, 4.4), dpi=150)
+for ax, st, ttl in ((axes[0], results[("four_rooms", 1.0)], "Cartesian"),
+                    (axes[1], st_tw, "GA exemplar twist")):
+    H, W = SHAPE
+    grid = np.full(H * W, np.nan)
+    gl = st.get("goals", goals_tw)
+    for k, s in enumerate(gl):
+        grid[s] = st["midpoint_counts"][k]
+    im = ax.imshow(grid.reshape(H, W), cmap="viridis")
+    ax.set_title(f"{ttl}: profitable-midpoint counts\n"
+                 f"({st['n_pairs_violating']}/{st['n_pairs']} pairs violating)",
+                 fontsize=10)
+    ax.set_xticks([]); ax.set_yticks([])
+    fig.colorbar(im, ax=ax, shrink=0.8)
+fig.suptitle("Triangle-inequality violations: Cartesian vs the evolved twist "
+             "(four_rooms $\\beta = 1$)")
+fig.tight_layout()
+fig.savefig(Path(__file__).parent / "figs" / "F-triangle-twist-vs-cartesian.png"
+            if "__file__" in dir() else "figs/F-triangle-twist-vs-cartesian.png",
+            dpi=150, bbox_inches="tight")
+plt.show()
+
+# %% [markdown]
+# ## Discernments, twist side (2026-07-09 run)
+#
+# - **The naive prediction is REFUTED, informatively.**  The exemplar
+#   twist does not reduce triangle violations -- it multiplies them:
+#   610/1,560 pairs with a profitable midpoint vs Cartesian's 258 at
+#   beta=1 (3.3% vs 1.1% of triples; max gap 6.6 vs 3.4), and the same
+#   2-4x amplification at beta 0.3 and 3.
+#
+# - **Reading: the twist buys mean cheapness by CURVING the geometry
+#   further, not flattening it.**  Mean direct cost falls (10.48 vs
+#   ~11.3) but the labelling installs a strong drift field (the homing
+#   flow), and directional geometry is exactly where two-leg routes
+#   (ride a flow, switch, ride another) undercut direct ones.  No
+#   contradiction with notebook 05's switch REDUCTION: optimal policies
+#   issue fewer switch events because labels serve longer legs, while
+#   the geometry offers more profitable re-planning points because the
+#   flows are stronger.  Behaviour segments less; geometry affords more.
+#
+# - **Midpoint anatomy under the twist**: hotspots remain at the central
+#   doorway flanks (amplified ~2x) with nonzero mass spreading across
+#   rooms; the home-cycle cells are moderate, not dominant -- the
+#   hub-and-spoke reading (home as THE waypoint) is not cleanly
+#   supported at one-exemplar resolution.  OPEN: overlap statistics of
+#   twisted midpoints vs the home cycle and vs the drift-sink field
+#   (notebook 01/03 machinery); cohort-level replication.
+#
+# - **Paper sentence candidate**: evolution does not straighten the
+#   free-energy geometry; it bends it so that its own habit legs are the
+#   cheap segments -- the policies then need fewer switches precisely
+#   because the representation has absorbed the segmentation as flow
+#   structure.
