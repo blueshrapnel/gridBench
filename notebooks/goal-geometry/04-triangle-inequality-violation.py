@@ -323,6 +323,87 @@ fig.savefig(Path(__file__).parent / "figs" / "F-triangle-twist-vs-cartesian.png"
 plt.show()
 
 # %% [markdown]
+# ## Journal-language restyle (paper figures; twists-infodesics
+# docs/journal-language.md).  Same data, plain labels.
+
+# %%
+ENV_PLAIN = {"four_rooms": "four rooms", "open_grid": "open grid (flat)",
+             "wrap_grid": "torus (flat)", "corr_1d_ring": "ring corridor"}
+
+fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.6), dpi=150)
+
+M = np.full((len(ENVS), len(BETAS)), np.nan)
+for i, e in enumerate(ENVS):
+    for j, b in enumerate(BETAS):
+        if (e, b) in results:
+            M[i, j] = results[(e, b)]["frac"]
+im = axes[0].imshow(M, cmap="YlOrRd", vmin=0, aspect="auto")
+axes[0].set_xticks(range(len(BETAS)), [f"$\\beta$={b}" for b in BETAS])
+axes[0].set_yticks(range(len(ENVS)), [ENV_PLAIN[e] for e in ENVS])
+for i in range(len(ENVS)):
+    for j in range(len(BETAS)):
+        if not np.isnan(M[i, j]):
+            axes[0].text(j, i, f"{M[i, j]:.1%}", ha="center", va="center",
+                         fontsize=10,
+                         color="white" if M[i, j] > 0.5 * np.nanmax(M) else "black")
+axes[0].set_title("share of (start, stopover, goal) choices\n"
+                  "where the stopover beats going direct")
+fig.colorbar(im, ax=axes[0], shrink=0.8)
+
+for e in ENVS:
+    if (e, 1.0) in results:
+        axes[1].hist(results[(e, 1.0)]["gaps"], bins=80, histtype="step",
+                     label=ENV_PLAIN[e], density=True)
+axes[1].axvline(0, color="black", lw=0.8)
+axes[1].set_xlabel("stopover discount (bits) --- positive: the stopover "
+                   "route is cheaper")
+axes[1].set_title("size of the discounts at $\\beta = 1$")
+axes[1].legend(fontsize=8)
+
+key = ("four_rooms", 1.0)
+if key in results:
+    st = results[key]
+    grid = np.full(SHAPE[0] * SHAPE[1], np.nan)
+    for k, s in enumerate(st["goals"]):
+        grid[s] = st["midpoint_counts"][k]
+    im3 = axes[2].imshow(grid.reshape(SHAPE), cmap="viridis")
+    axes[2].set_title("four rooms: how often each cell is\n"
+                      "the winning stopover ($\\beta = 1$)")
+    axes[2].set_xticks([]); axes[2].set_yticks([])
+    fig.colorbar(im3, ax=axes[2], shrink=0.8)
+
+fig.suptitle("Stopovers that beat the direct route --- standard compass "
+             f"controls, no relabelling (det = {DET})")
+fig.tight_layout()
+fig.savefig(Path(__file__).parent / "figs" / "F-triangle-violation-journal.png"
+            if "__file__" in dir() else "figs/F-triangle-violation-journal.png",
+            dpi=150, bbox_inches="tight")
+plt.show()
+
+# %%
+fig, axes = plt.subplots(1, 2, figsize=(10.2, 4.4), dpi=150)
+for ax, st, ttl in ((axes[0], results[("four_rooms", 1.0)],
+                     "standard compass controls"),
+                    (axes[1], st_tw, "evolved relabelling (twist)")):
+    grid = np.full(SHAPE[0] * SHAPE[1], np.nan)
+    gl = st.get("goals", goals_tw)
+    for k, s in enumerate(gl):
+        grid[s] = st["midpoint_counts"][k]
+    im = ax.imshow(grid.reshape(SHAPE), cmap="viridis")
+    ax.set_title(f"{ttl}\n{st['n_pairs_violating']} of {st['n_pairs']} "
+                 "start--goal journeys have a\ncheaper stopover route",
+                 fontsize=10)
+    ax.set_xticks([]); ax.set_yticks([])
+    fig.colorbar(im, ax=ax, shrink=0.8)
+fig.suptitle("Evolution multiplies the cheap stopovers while cheapening "
+             "direct travel (four rooms, $\\beta = 1$)")
+fig.tight_layout()
+fig.savefig(Path(__file__).parent / "figs" / "F-triangle-twist-vs-cartesian-journal.png"
+            if "__file__" in dir() else "figs/F-triangle-twist-vs-cartesian-journal.png",
+            dpi=150, bbox_inches="tight")
+plt.show()
+
+# %% [markdown]
 # ## Discernments, twist side (2026-07-09 run)
 #
 # - **The naive prediction is REFUTED, informatively.**  The exemplar

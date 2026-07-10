@@ -283,6 +283,41 @@ fig.savefig(Path(__file__).parent / "figs" / "F-segmentation-switch-points.png"
 plt.show()
 
 # %% [markdown]
+# ## Journal-language restyle (paper figure; twists-infodesics
+# docs/journal-language.md).  Same data, plain labels.
+
+# %%
+fig, axes = plt.subplots(1, 4, figsize=(17.5, 4.4), dpi=150)
+im0 = rate_panel(axes[0], conds["fr-cartesian"],
+                 "four rooms, compass controls\nhow often travellers change "
+                 "control here\n(doorways outlined)")
+fig.colorbar(im0, ax=axes[0], shrink=0.8)
+im1 = rate_panel(axes[1], conds["fr-twist"],
+                 "four rooms, evolved relabelling\nsame routes, 40% fewer "
+                 "control changes")
+fig.colorbar(im1, ax=axes[1], shrink=0.8)
+im2 = rate_panel(axes[2], conds["wrap-cartesian"],
+                 "torus control (flat): plenty of switching,\nnowhere in "
+                 "particular", mark_doors=False)
+fig.colorbar(im2, ax=axes[2], shrink=0.8)
+
+axes[3].scatter(mp_counts, sw, s=26, color="#4477aa")
+axes[3].set_xlabel("how often the cell is a winning stopover (geometry)")
+axes[3].set_ylabel("control changes observed at the cell (behaviour)")
+axes[3].set_title(f"the geometry predicts the behaviour\nr = {r:.2f} "
+                  "(four rooms, compass controls)")
+
+fig.suptitle("Where routes change control: the decision happens after the "
+             f"door, not in it ($\\beta = {BETA}$, det = {DET})")
+fig.tight_layout()
+fig.savefig(Path(__file__).parent / "figs"
+            / "F-segmentation-switch-points-journal.png"
+            if "__file__" in dir()
+            else "figs/F-segmentation-switch-points-journal.png",
+            dpi=150, bbox_inches="tight")
+plt.show()
+
+# %% [markdown]
 # ## Discernments (2026-07-08 run, gridcore d432c4b)
 #
 # - **The doorway is a corridor, not a decision point.**  Switch rate per
