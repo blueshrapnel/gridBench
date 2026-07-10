@@ -77,16 +77,16 @@ def load_exemplar_sigma():
     raise FileNotFoundError(EXEMPLAR_HASH_PREFIX)
 
 
-def build(sigma, goal, beta):
+def build(sigma, goal, beta, theta=THETA):
     cfg = EvalConfig(env_id=ENV, shape=SHAPE, goal=int(goal), beta=beta,
-                     determinism=DET, manhattan=True, theta=THETA,
+                     determinism=DET, manhattan=True, theta=theta,
                      state_dist="uniform")
     return build_twisted_env_from_sigma(sigma, cfg)
 
 
-def solve_frame(sigma, beta):
+def solve_frame(sigma, beta, theta=THETA):
     """Per goal: F column, policy, visit matrix, converged marginal."""
-    env0 = build(sigma, 0, beta)
+    env0 = build(sigma, 0, beta, theta)
     goals = [int(s) for s in env0.available_states]
     n = len(goals)
     D = np.zeros((n, n))
@@ -94,8 +94,8 @@ def solve_frame(sigma, beta):
     V = np.zeros((n, n, nS))
     p_hat = np.zeros((n, 4))
     for j, g in enumerate(goals):
-        env = build(sigma, g, beta)
-        di = DecisionInformation(env, _state_dist_class("uniform")(env), THETA,
+        env = build(sigma, g, beta, theta)
+        di = DecisionInformation(env, _state_dist_class("uniform")(env), theta,
                                  max_iterations=200_000,
                                  max_info_iterations=10_000)
         pi, _, F = di.get_opt_policy_Z_free_vector(beta)
@@ -143,7 +143,7 @@ def free_energy_fixed_prior(env, prior, beta, theta=THETA,
     return F, False
 
 
-def decompose_frame(sigma, beta, fr):
+def decompose_frame(sigma, beta, fr, theta=THETA):
     """PS + gap_shared + the section-7 first-order estimate."""
     D, goals, p_hat = fr["D"], fr["goals"], fr["p_hat"]
     policies, V = fr["policies"], fr["V"]
@@ -155,22 +155,22 @@ def decompose_frame(sigma, beta, fr):
 
     fp_dev = 0.0
     for ck in range(0, n, max(n // 5, 1)):
-        env = build(sigma, goals[ck], beta)
-        Fc, ok = free_energy_fixed_prior(env, p_hat[ck], beta)
+        env = build(sigma, goals[ck], beta, theta)
+        Fc, ok = free_energy_fixed_prior(env, p_hat[ck], beta, theta=theta)
         assert ok
         fp_dev = max(fp_dev, float(np.max(np.abs(Fc[goals] - D[:, ck]))))
 
     F_shared = np.zeros((n, n, n))
     PS_est = np.zeros((n, n, n))
     for bk in range(n):
-        env_B = build(sigma, goals[bk], beta)
+        env_B = build(sigma, goals[bk], beta, theta)
         # per-state expected log-ratio under pi_B, for every prior source C
         lr = policies[bk] @ (log_ref[bk][:, None] - log_ref.T)   # (nS, n)
         est = V[bk] @ lr / beta                                  # (n, n): A x C
         for ck in range(n):
             if ck == bk:
                 continue
-            Fs, ok = free_energy_fixed_prior(env_B, p_hat[ck], beta)
+            Fs, ok = free_energy_fixed_prior(env_B, p_hat[ck], beta, theta=theta)
             assert ok, (beta, bk, ck)
             F_shared[:, bk, ck] = Fs[goals]
             PS_est[:, bk, ck] = est[:, ck]
@@ -371,6 +371,100 @@ fig.savefig(Path(__file__).parent / "figs" / "F-twist-prior-specialisation.png"
 plt.show()
 
 # %% [markdown]
+# ## Cohort replication (beta = 1)
+#
+# One exemplar is one anecdote.  Repeat the full analysis on four more
+# four_rooms 7x7 GA run-bests (schema export, fepm/random/k010
+# excluded, deterministic pick: first four hashes in sorted order).
+
+# %%
+COHORT_PREFIXES = ["3b3bd282", "ad7d0932", "d10ee13f", "6b6969e0"]
+
+
+def load_sigma_by_prefix(prefix):
+    root = SCHEMA_EXPORT / "shape=7x7" / "env_id=four_rooms"
+    for p in sorted(root.rglob("*.pickle")):
+        blob = pickle.load(open(p, "rb"))
+        prov = blob.get("provenance", {}) if isinstance(blob.get("provenance"), dict) else {}
+        if str(prov.get("sigma_hash", "")).startswith(prefix):
+            return np.asarray(blob["sigma"], dtype=int)
+    raise FileNotFoundError(prefix)
+
+
+def analyse_sigma(tag, sigma, fr=None, dec=None):
+    if fr is None:
+        fr = solve_frame(sigma, 1.0)
+        dec = decompose_frame(sigma, 1.0, fr)
+    assert dec is not None
+    gap, valid = dec["gap"], dec["valid"]
+    PS, PS_est = dec["PS"], dec["PS_est"]
+    viol = valid & (gap > TOL)
+    noise = max(2 * dec["fp_dev"], 10 * THETA)
+    surv = int((valid & (dec["gap_shared"] > noise)).sum())
+    KL = pairwise_marginal_kl(fr["p_hat"])
+    pm = ~np.eye(KL.shape[0], dtype=bool)
+    dl, _cyc, cov = dominant_label_anatomy(sigma)
+    al = fr["p_hat"][:, dl]
+    PSp = np.median(PS, axis=0)
+    on = (al[:, None] > 0.5) & (al[None, :] > 0.5) & pm
+    off = pm & ~on
+    ps_v, est_v = PS[valid], PS_est[valid]
+    return dict(
+        tag=tag, cov=cov,
+        viol=float(viol.sum() / valid.sum()),
+        maxgap=float(gap[viol].max()) if viol.any() else 0.0,
+        surv=surv,
+        ps_share=float(np.median(PS[viol] / gap[viol])) if viol.any() else np.nan,
+        klmed=float(np.median(KL[pm])),
+        bound=float((ps_v <= est_v + 1e-3).mean()),
+        r_est=float(np.corrcoef(ps_v, est_v)[0, 1]),
+        n_on=int(on.sum()),
+        ps_on=float(np.median(PSp[on])) if on.any() else np.nan,
+        ps_off=float(np.median(PSp[off])),
+        r_flow=float(np.corrcoef(KL[pm], PSp[pm])[0, 1]),
+    )
+
+
+cohort_rows = [analyse_sigma("0e5cb0bf*", sigma_ex,
+                             fr=runs[("twist", 1.0)], dec=runs[("twist", 1.0)])]
+for pref in COHORT_PREFIXES:
+    cohort_rows.append(analyse_sigma(pref, load_sigma_by_prefix(pref)))
+cohort_rows.append(analyse_sigma("cartesian", identity,
+                                 fr=runs[("cartesian", 1.0)],
+                                 dec=runs[("cartesian", 1.0)]))
+
+print(f"{'twist':10s} {'cov':5s} {'viol':6s} {'maxgap':7s} {'surv':4s} "
+      f"{'PSshr':6s} {'KLmed':6s} {'bound':6s} {'r_est':6s} "
+      f"{'on-prs':6s} {'PS on/off':11s} {'r_flow':6s}")
+for r in cohort_rows:
+    print(f"{r['tag']:10s} {r['cov']:.2f}  {r['viol']:5.1%} {r['maxgap']:7.3f} "
+          f"{r['surv']:4d} {r['ps_share']:6.2f} {r['klmed']:6.3f} "
+          f"{r['bound']:6.1%} {r['r_est']:6.3f} {r['n_on']:6d} "
+          f"{r['ps_on']:5.2f}/{r['ps_off']:5.2f} {r['r_flow']:6.3f}")
+
+# %% [markdown]
+# ## Precision check: is the shared-prior quasimetric exact?
+#
+# The deterministic path-concatenation argument makes the fixed-prior
+# triangle inequality exact; with stochastic transitions (det 0.97) the
+# transition expectation sits INSIDE the exponent (risk-sensitive form,
+# not an LMDP), so exact superadditivity is not guaranteed.  nb09 found
+# gap_shared <= ~1e-3, below the theta=1e-5 solver noise.  Tighten the
+# solvers three orders (DI theta 1e-8, fixed-prior theta 1e-9) and look
+# again: survivors here would be a genuine stochasticity correction, a
+# clean zero means the common-prior quasimetric holds exactly for all
+# practical purposes.
+
+# %%
+fr_hi = solve_frame(identity, 1.0, theta=1e-8)
+dec_hi = decompose_frame(identity, 1.0, fr_hi, theta=1e-9)
+gs = dec_hi["gap_shared"][dec_hi["valid"]]
+print(f"fixed-point dev at tight theta: {dec_hi['fp_dev']:.2e}")
+print(f"max gap_shared {gs.max():.3e}; count > 1e-6: {(gs > 1e-6).sum()}, "
+      f"> 1e-4: {(gs > 1e-4).sum()}, > 1e-3: {(gs > 1e-3).sum()} "
+      f"of {gs.size} triples")
+
+# %% [markdown]
 # ## Discernments (2026-07-09 run, gridcore d432c4b)
 #
 # - **H1 confirmed — the shared-prior quasimetric is frame-independent.**
@@ -418,6 +512,36 @@ plt.show()
 #   strongly specialised priors, and that boundary is where the twisted
 #   geometry's extra violations (= extra profitable subgoals) live.
 #
-# - Follow-ups: replicate on 2-3 more GA run-bests (one exemplar here);
-#   beta-screen harvest — do twists EVOLVED at beta 0.5/0.3 widen or
-#   narrow the marginal-divergence distribution vs this beta=1 exemplar?
+# - Follow-up remaining: beta-screen harvest — do twists EVOLVED at
+#   beta 0.5/0.3 widen or narrow the marginal-divergence distribution?
+#
+# ## Cohort + precision discernments (2026-07-10 run)
+#
+# - **Cohort replication (5 GA run-bests, coverages 0.38-0.85): every
+#   verdict replicates.**  Shared-prior survivors 0 for all five;
+#   PS_est bounds PS on 100.0% of triples everywhere (r 0.93-0.96);
+#   PS share 1.30-1.48 (all above Cartesian's 1.07); on/off-flow PS
+#   separation 4-8x in every twist (0.6-1.9 vs 6.1-15.9 bits-equiv),
+#   corr(marginal KL, PS) 0.89-0.93.  Nothing about nb09/nb10's story
+#   is exemplar-specific.
+#
+# - **Violation rate and marginal divergence measure different
+#   things.**  Amplification tracks COVERAGE: the saturated twists
+#   (cov 0.85/0.82) violate most (3.3%/2.7% of triples) while the
+#   fragmented ones (cov 0.38-0.47) sit near Cartesian (1.2-1.8%) —
+#   yet the fragmented twists have the MOST divergent per-goal
+#   marginals (KL median up to 4.4 vs 1.2).  A strong coherent flow is
+#   what makes two-leg routes profitable OFTEN; divergent vocabularies
+#   are what make each profitable segmentation LARGE.
+#
+# - **Precision check: the shared-prior quasimetric holds to < 1e-3
+#   bits.**  With solvers tightened three orders (theta 1e-8/1e-9),
+#   max gap_shared = 5.3e-4 bits against gaps of 1-11 bits (four
+#   orders of magnitude), zero triples above 1e-3.  The residual is
+#   dominated by the marginal-extraction systematic (fixed-point dev
+#   4.2e-4, unchanged from theta=1e-5 — not convergence-limited), so
+#   "exact vs tiny stochasticity correction" remains open below that
+#   floor.  Deterministic dynamics: exact by path concatenation; the
+#   stochastic proof (expectation inside the exponent) is the open
+#   theory item.  Write-up + the corrected theorem statements:
+#   twists-infodesics/docs/switching-cost-vs-prior-specialisation.md.
