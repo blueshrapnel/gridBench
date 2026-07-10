@@ -51,7 +51,10 @@ print(f"gridcore: {repo.name} @ {commit}")
 from gridcore.bridge import EvalConfig, _state_dist_class, build_twisted_env_from_sigma
 from gridcore.info import DecisionInformation
 
-SCREEN = Path("/media/merlin/grid-twist/gridtwist-outputs/core-beta-screen-09-07")
+SCREENS = [
+    Path("/media/merlin/grid-twist/gridtwist-outputs/core-beta-screen-09-07"),
+    Path("/media/merlin/grid-twist/gridtwist-outputs/core-beta-screen2-10-07"),
+]
 DET, THETA, TOL = 0.97, 1e-5, 1e-6
 REF_FLOOR = 1e-6
 
@@ -62,18 +65,19 @@ RUN_RE = re.compile(
 
 def parse_runs():
     out = []
-    for d in sorted(SCREEN.iterdir()):
-        m = RUN_RE.search(d.name)
-        if not m:
-            continue
-        beta = {"03": 0.3, "05": 0.5}[m["beta"]]
-        env_id = m["env"].replace("-", "_")
-        hw = int(m["shape"].split("x")[0])
-        sig = np.load(next(d.glob("*multi-all.sigma.npy")))
-        summ = json.load(open(next(d.glob("*multi-all.summary.json"))))
-        out.append(dict(dir=d.name, beta=beta, env_id=env_id,
-                        shape=(hw, hw), seed=m["seed"],
-                        sigma=np.asarray(sig, dtype=int), summary=summ))
+    for screen in SCREENS:
+        for d in sorted(screen.iterdir()):
+            m = RUN_RE.search(d.name)
+            if not m:
+                continue
+            beta = {"03": 0.3, "05": 0.5}[m["beta"]]
+            env_id = m["env"].replace("-", "_")
+            hw = int(m["shape"].split("x")[0])
+            sig = np.load(next(d.glob("*multi-all.sigma.npy")))
+            summ = json.load(open(next(d.glob("*multi-all.summary.json"))))
+            out.append(dict(dir=d.name, beta=beta, env_id=env_id,
+                            shape=(hw, hw), seed=m["seed"],
+                            sigma=np.asarray(sig, dtype=int), summary=summ))
     return out
 
 
@@ -254,6 +258,27 @@ for beta in (0.5, 0.3):
           f"flat worlds given violations: {len(flat_made)}")
 
 # %% [markdown]
+# ## Per-cell seed cohorts (v1 + v2 screens combined)
+
+# %%
+from collections import defaultdict  # noqa: E402
+
+cells = defaultdict(list)
+for x in rows:
+    cells[(x["env"], x["hw"], x["beta"])].append(x)
+print(f"{'cell':26s} {'n':2s} {'cov (per seed)':22s} {'viol tw':16s} "
+      f"{'cart':6s} {'KL ratio':14s} {'asym':4s}")
+for key in sorted(cells):
+    xs = sorted(cells[key], key=lambda x: x["seed"])
+    covs = "/".join(f"{x['cov_dom']:.2f}" for x in xs)
+    viols = "/".join(f"{x['viol_tw']:.1%}" for x in xs)
+    klrs = "/".join(f"{x['kl_tw'] / x['kl_ca']:.1f}" if x["kl_ca"] > 1e-6
+                    else "from-0" for x in xs)
+    print(f"{key[0]:11s}{key[1]}x{key[1]} b{key[2]:<4} {len(xs):2d} "
+          f"{covs:22s} {viols:16s} {xs[0]['viol_ca']:5.1%} {klrs:14s} "
+          f"{sum(x['asym'] for x in xs)}")
+
+# %% [markdown]
 # ## Figures
 
 # %%
@@ -359,4 +384,37 @@ plt.show()
 #   aggregates with error bars; PS decompose (nb10 machinery) on the
 #   wrap/helical saturated twists -- on-flow PS should be ~zero there
 #   by construction, making the flat-world violations a pure
-#   off-flow/marginal-boundary effect.
+#   off-flow/marginal-boundary effect.  [PS decompose done: nb12.]
+#
+# ## v2 seed-cohort verdicts (2026-07-10 evening run, 26 twists)
+#
+# - **Flat-world manufactured violations: REPLICATED 8/8.**  Every
+#   wrap/helical run at both betas and both seeds saturates (cov 1.00)
+#   and violates on 2.5-4.2% of triples from a Cartesian baseline of
+#   exactly zero; flat-world marginal KL is created from numerical
+#   zero (~1e-33) to 5.4-8.6 bits.  Report as "created from zero", not
+#   as a ratio.
+#
+# - **Pinwheel absorption: REPLICATED 4/4, strikingly seed-stable.**
+#   9.5/9.6% vs Cartesian 11.8% at b0.3; 8.2/8.1% vs 10.5% at b0.5 --
+#   the twist-side violation rates agree across seeds to 0.1pp.
+#
+# - **Coverage non-monotonicity: CONFIRMED as a tendency, with a
+#   bimodality caveat.**  four_rooms 7x7 at beta=0.5 is uniformly low
+#   (0.40/0.50/0.50) while beta=0.3 is mostly high (0.82/0.85) with one
+#   low seed (0.47); 9x9 shows the same direction weakly.  The within-
+#   cell spread says the paper claim should be about the DISTRIBUTION
+#   shift, not a per-seed guarantee.
+#
+# - **KL widening: 2.7-8.2x across every walled cell** (all seeds) --
+#   the prior-specialisation-as-design-strategy reading stands with
+#   cohort backing.
+#
+# - **The formal asymmetric mode nearly vanishes at low beta: 1/26**
+#   (vs ~3/21 at beta=1 on four_rooms 7x7).  Low-beta evolution prefers
+#   either full saturation (flat worlds) or fragmented multi-vocabulary
+#   solutions -- the dominant-plus-silenced anatomy is a beta~1
+#   phenomenon on walled worlds.
+#
+# - four_rooms 9x9 b0.3 stays provisional: BOTH seeds flag forced-exit
+#   DI solves (the low-beta float64 wall; gridCore#1).
