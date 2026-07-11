@@ -42,8 +42,16 @@ Changes vs schema-10:
 
 1. **`fitness_objective` promoted to a path level** under `multi/`,
    between `init_method` and `env_id`.  Value comes from the run's
-   `summary.json`; pre-field GA runs go to `legacy_unknown` rather than
-   being silently pooled.
+   `summary.json`.  At migration, pre-field GA runs (53: early March +
+   the 6 prod-baselines) were assigned `decision_information` — the
+   only objective that existed before the field did (historical fact,
+   flagged `objective-defaulted-di` in MIGRATION-MAP.tsv).
+   `legacy_unknown` remains the importer's anomaly bucket for future
+   runs missing the field.  The 21 surviving `expl`/FEP+M runs were
+   **excluded from schema-11 entirely** (never re-certified after the
+   2026-05 wrong-side-σ contamination); they remain only in frozen
+   schema-10 and the panther archive, so future FEP+M reruns start a
+   clean `fitness_objective=free_energy_plus_modularity` partition.
 2. **Export partitioned like the store.**  `schema10-export`'s flat pool
    is replaced by `export/` mirroring the two provenance levels, and
    every collated pickle's `provenance` dict gains `init_method` and
