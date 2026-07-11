@@ -33,8 +33,9 @@ data-schema-11/
     init_method=<...>/env_id=/shape=/beta=/det=/run_name=/          # no objective level (no fitness)
   export/
     init_method=<...>/fitness_objective=<...>/shape=/env_id=/.../collated-*.pickle
+  cache/
+    functional_graph/env_id=/shape=/det=/beta=/fingerprints.parquet  # fp_version 7
   reports/
-    _cache/functional_graph/env_id=/shape=/det=/beta=/fingerprints.parquet
     multi/..., import-manifests/...                                  # as schema-10
 ```
 
@@ -60,8 +61,18 @@ Changes vs schema-10:
 3. **Analytics columns.**  `run.parquet` manifest goes to
    `schema_version = 10`: adds `init_method` (string) and
    `fitness_objective` (string, nullable for random).
-   `FINGERPRINT_SCHEMA` gains `init_method` (string) at the next
-   `fp_version` bump; `fitness_objective` is already present since v2.
+   `FINGERPRINT_SCHEMA` gains `init_method` (string) at `fp_version = 7`;
+   `fitness_objective` is present since v2.  The fingerprint cache moved
+   OUT of `reports/_cache` into `<store>/cache/functional_graph/` (it is
+   a derived cache, not a report).  The v7 cache was built 2026-07-11 by
+   AUGMENTING the frozen v6 parquets (`gridBench/scripts/`
+   `augment_fingerprint_cache_v7.py`): fp values unchanged,
+   `init_method` + `fitness_objective_store` joined per row from the
+   canonical partitions, the 152,531 excluded FEP+M rows dropped
+   (2,856,773 of 3,009,304 rows carried over).  Consumers (gridFlask
+   build, notebooks, build_simple_reports) must repoint from
+   `data-schema-10/reports/_cache/...` to `data-schema-11/cache/...` —
+   the outstanding consumer-audit item.
 4. **Seeded-run lineage rule.**  For runs started from a prior
    population (`--seed-population`), `init_method` is the *lineage* —
    the init_method of the run that produced the seed population — NOT
