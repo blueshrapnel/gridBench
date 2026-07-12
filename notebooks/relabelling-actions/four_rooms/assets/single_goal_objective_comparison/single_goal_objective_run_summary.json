@@ -1,0 +1,40 @@
+[
+  {
+    "fitness_objective":"decision_information",
+    "label":"Decision Information fitness",
+    "run_dir":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-sp0319-1707",
+    "summary_path":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-sp0319-1707\/single-goal-g20-b1-four-rooms-goal46-sp0319-1707.summary.json",
+    "cache_path":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-sp0319-1707\/sigma_cache.sqlite",
+    "sigma_path":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-sp0319-1707\/single-goal-g20-b1-four-rooms-goal46-sp0319-1707.sigma.npy",
+    "local_sigma_path":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/assets\/single_goal_objective_comparison\/sigmas\/goal46_di_fitness_613dca789f8abdd60d967d6cc6f0e641.npy",
+    "best_sigma_hash":"613dca789f8abdd60d967d6cc6f0e641",
+    "best_fitness":0.3963817637,
+    "best_expected_di":0.3963817637,
+    "best_expected_free":6.8757621947,
+    "best_expected_value":-6.479216718,
+    "cache_rows":941,
+    "focus_png":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_di_fitness_focus_manhattan_free.png",
+    "focus_pdf":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_di_fitness_focus_manhattan_free.pdf",
+    "triptych_png":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_di_fitness_metric_triptych.png",
+    "triptych_pdf":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_di_fitness_metric_triptych.pdf"
+  },
+  {
+    "fitness_objective":"free_energy",
+    "label":"Free Energy fitness",
+    "run_dir":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-free-sp0320-2044",
+    "summary_path":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-free-sp0320-2044\/single-goal-g20-b1-four-rooms-goal46-free-sp0320-2044.summary.json",
+    "cache_path":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-free-sp0320-2044\/sigma_cache.sqlite",
+    "sigma_path":"\/media\/merlin\/grid-twist\/output\/single_goal\/four_rooms\/shape=7x7\/goal=46\/beta=1\/det=0.97\/run_name=single-goal-g20-b1-four-rooms-goal46-free-sp0320-2044\/single-goal-g20-b1-four-rooms-goal46-free-sp0320-2044.sigma.npy",
+    "local_sigma_path":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/assets\/single_goal_objective_comparison\/sigmas\/goal46_free_fitness_0ec86e8d24617c514e3405f7cf46fd2d.npy",
+    "best_sigma_hash":"0ec86e8d24617c514e3405f7cf46fd2d",
+    "best_fitness":6.5534448425,
+    "best_expected_di":0.1642535559,
+    "best_expected_free":6.5534448425,
+    "best_expected_value":-6.3890947946,
+    "cache_rows":971,
+    "focus_png":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_free_fitness_focus_manhattan_free.png",
+    "focus_pdf":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_free_fitness_focus_manhattan_free.pdf",
+    "triptych_png":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_free_fitness_metric_triptych.png",
+    "triptych_pdf":"\/home\/karen\/phd-marlyn\/gridFour\/notebooks\/alife-relabelled-actions\/four_rooms\/figures\/four_rooms_goal46_free_fitness_metric_triptych.pdf"
+  }
+]

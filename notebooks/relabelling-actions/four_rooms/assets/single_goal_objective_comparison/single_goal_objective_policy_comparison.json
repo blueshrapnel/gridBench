@@ -1,0 +1,180 @@
+{
+  "policy_row_change_count": 40,
+  "policy_row_changes": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    26,
+    27,
+    30,
+    34,
+    35,
+    36,
+    37,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48
+  ],
+  "label_diff_state_count": 1,
+  "label_diff_states": [
+    {
+      "state": 35,
+      "old_label": 1,
+      "new_label": 0
+    }
+  ],
+  "physical_diff_state_count": 17,
+  "physical_diff_states": [
+    {
+      "state": 1,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 0,
+      "new_physical": 1
+    },
+    {
+      "state": 2,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 2,
+      "new_physical": 3
+    },
+    {
+      "state": 3,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 1,
+      "new_physical": 3
+    },
+    {
+      "state": 5,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 2
+    },
+    {
+      "state": 10,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 1,
+      "new_physical": 3
+    },
+    {
+      "state": 13,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 2,
+      "new_physical": 3
+    },
+    {
+      "state": 14,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 2,
+      "new_physical": 3
+    },
+    {
+      "state": 17,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 1
+    },
+    {
+      "state": 19,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 1,
+      "new_physical": 3
+    },
+    {
+      "state": 22,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 0
+    },
+    {
+      "state": 23,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 2,
+      "new_physical": 1
+    },
+    {
+      "state": 24,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 2
+    },
+    {
+      "state": 34,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 2
+    },
+    {
+      "state": 35,
+      "old_label": 1,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 1
+    },
+    {
+      "state": 41,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 1
+    },
+    {
+      "state": 47,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 2,
+      "new_physical": 3
+    },
+    {
+      "state": 48,
+      "old_label": 0,
+      "new_label": 0,
+      "old_physical": 3,
+      "new_physical": 0
+    }
+  ],
+  "same_sigma": false,
+  "goal": 46,
+  "beta": 1.0,
+  "determinism": 0.97,
+  "shared_sigma_count": 211
+}

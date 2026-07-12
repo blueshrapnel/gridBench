@@ -1,0 +1,12 @@
+{
+  "target_rows": 4595,
+  "random_sample_seed": 20260319,
+  "sample_csv": "/media/merlin/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/random_diffusion/four_rooms_random_diffusion_sample_matching_g200.csv",
+  "random_only_png": "/media/merlin/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/figures/four_rooms_random_diffusion_cloud_frontier.png",
+  "overlay_png": "/media/merlin/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/figures/four_rooms_g200_action_alignment_free_energy_frontier_with_random_cloud.png",
+  "hex_overlay_png": "/media/merlin/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/figures/four_rooms_g200_action_alignment_free_energy_hexbin_with_random_underlay.png",
+  "hex_overlay_csv": "/media/merlin/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/random_diffusion/four_rooms_g200_action_alignment_free_energy_hexbin_with_random_underlay.csv",
+  "baseline_mean_free": 11.277334462959043,
+  "chi0_mean_free": 11.277334462959043,
+  "chi0_sigma": "20003f484583775f42c63f43d5d9c3e2"
+}

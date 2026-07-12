@@ -1,0 +1,19 @@
+{
+  "multi_goal_best": {
+    "source": "/media/merlin/grid-twist/data-schema-10/multi/init_method=perm_balanced/env_id=four_rooms/shape=7x7/beta=1/det=0.97/run_name=prod-candidate-g200-b1-four-rooms-sp3011-09-20260309/hive_sigma/shape=7x7/env_id=four_rooms/neighbourhood=manhattan/state_dist=uniform/det=0.97/eps=0.8/beta=1/goal_mode=all/goal_set=960de1db06cf4e82/sigma_id=24f551168e0469f95eea9fce2d976824/sigma.npy",
+    "local_copy": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/sigmas/multi_goal_best_g200_24f551168e0469f95eea9fce2d976824.npy",
+    "sigma_hash": "24f551168e0469f95eea9fce2d976824",
+    "description": "Best mean-DI sigma from prod-candidate-g200-b1-four-rooms-sp3011-09-20260309"
+  },
+  "single_goal_best": {
+    "source": "/media/merlin/grid-twist/output/single_goal/four_rooms/shape=7x7/goal=46/beta=1/det=0.97/run_name=single-goal-g20-b1-four-rooms-goal46-sp0319-1707/single-goal-g20-b1-four-rooms-goal46-sp0319-1707.sigma.npy",
+    "local_copy": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/sigmas/single_goal_best_goal46_613dca789f8abdd60d967d6cc6f0e641.npy",
+    "sigma_hash": "613dca789f8abdd60d967d6cc6f0e641",
+    "description": "Best sigma from the 20-generation single-goal GA targeting goal 46"
+  },
+  "random_sigma": {
+    "local_copy": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/sigmas/random_per_state_seed20260319.npy",
+    "seed": 20260319,
+    "description": "One random per-state permutation sigma with no search or training"
+  }
+}

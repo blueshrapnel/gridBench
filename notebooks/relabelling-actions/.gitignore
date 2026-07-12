@@ -1,0 +1,6 @@
+# Generated outputs (regenerable by running the notebooks)
+figures/
+review/
+_cache/
+__pycache__/
+.ipynb_checkpoints/

@@ -1,0 +1,602 @@
+[
+  {
+    "ordering_idx": 0,
+    "ordering": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "ordering_label": "[N, E, S, W]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_00_N-E-S-W.npz",
+    "sigma_hash": "98d6fd77ab5c9fe3240082e765f93eca",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[N, E, S, W]",
+    "predominant_ordering_str": "[N, E, S, W]"
+  },
+  {
+    "ordering_idx": 1,
+    "ordering": [
+      0,
+      1,
+      3,
+      2
+    ],
+    "ordering_label": "[N, E, W, S]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_01_N-E-W-S.npz",
+    "sigma_hash": "e2c1e9bf17ef44db55f6bbc5e7ef981f",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      0,
+      1,
+      3,
+      2
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[N, E, W, S]",
+    "predominant_ordering_str": "[N, E, W, S]"
+  },
+  {
+    "ordering_idx": 2,
+    "ordering": [
+      0,
+      2,
+      1,
+      3
+    ],
+    "ordering_label": "[N, S, E, W]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_02_N-S-E-W.npz",
+    "sigma_hash": "8aa12d83a4413b7d7d2251a4c3f78ac5",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      0,
+      2,
+      1,
+      3
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[N, S, E, W]",
+    "predominant_ordering_str": "[N, S, E, W]"
+  },
+  {
+    "ordering_idx": 3,
+    "ordering": [
+      0,
+      2,
+      3,
+      1
+    ],
+    "ordering_label": "[N, S, W, E]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_03_N-S-W-E.npz",
+    "sigma_hash": "6afac3dfd15fb285d9451111a33c5c01",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      0,
+      2,
+      3,
+      1
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[N, S, W, E]",
+    "predominant_ordering_str": "[N, S, W, E]"
+  },
+  {
+    "ordering_idx": 4,
+    "ordering": [
+      0,
+      3,
+      1,
+      2
+    ],
+    "ordering_label": "[N, W, E, S]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_04_N-W-E-S.npz",
+    "sigma_hash": "a36e2cbb8004e1680142ad8c4435f424",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      0,
+      3,
+      1,
+      2
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[N, W, E, S]",
+    "predominant_ordering_str": "[N, W, E, S]"
+  },
+  {
+    "ordering_idx": 5,
+    "ordering": [
+      0,
+      3,
+      2,
+      1
+    ],
+    "ordering_label": "[N, W, S, E]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_05_N-W-S-E.npz",
+    "sigma_hash": "465475602dcfec79b44bc2102be864af",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      0,
+      3,
+      2,
+      1
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[N, W, S, E]",
+    "predominant_ordering_str": "[N, W, S, E]"
+  },
+  {
+    "ordering_idx": 6,
+    "ordering": [
+      1,
+      0,
+      2,
+      3
+    ],
+    "ordering_label": "[E, N, S, W]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_06_E-N-S-W.npz",
+    "sigma_hash": "a0a476461b2a3bb08a0b7d4aee9bd6d4",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      1,
+      0,
+      2,
+      3
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[E, N, S, W]",
+    "predominant_ordering_str": "[E, N, S, W]"
+  },
+  {
+    "ordering_idx": 7,
+    "ordering": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "ordering_label": "[E, N, W, S]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_07_E-N-W-S.npz",
+    "sigma_hash": "b76b3a19f784e3ef2189ae454398c440",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[E, N, W, S]",
+    "predominant_ordering_str": "[E, N, W, S]"
+  },
+  {
+    "ordering_idx": 8,
+    "ordering": [
+      1,
+      2,
+      0,
+      3
+    ],
+    "ordering_label": "[E, S, N, W]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_08_E-S-N-W.npz",
+    "sigma_hash": "593c59215048ac7f0a2b964774ceac40",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      1,
+      2,
+      0,
+      3
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[E, S, N, W]",
+    "predominant_ordering_str": "[E, S, N, W]"
+  },
+  {
+    "ordering_idx": 9,
+    "ordering": [
+      1,
+      2,
+      3,
+      0
+    ],
+    "ordering_label": "[E, S, W, N]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_09_E-S-W-N.npz",
+    "sigma_hash": "c17e7c1ba8c078778732d7a94b4845ba",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      1,
+      2,
+      3,
+      0
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[E, S, W, N]",
+    "predominant_ordering_str": "[E, S, W, N]"
+  },
+  {
+    "ordering_idx": 10,
+    "ordering": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "ordering_label": "[E, W, N, S]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_10_E-W-N-S.npz",
+    "sigma_hash": "cb630af3ddd97aa39427d786d15f5ca1",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[E, W, N, S]",
+    "predominant_ordering_str": "[E, W, N, S]"
+  },
+  {
+    "ordering_idx": 11,
+    "ordering": [
+      1,
+      3,
+      2,
+      0
+    ],
+    "ordering_label": "[E, W, S, N]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_11_E-W-S-N.npz",
+    "sigma_hash": "20003f484583775f42c63f43d5d9c3e2",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      1,
+      3,
+      2,
+      0
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[E, W, S, N]",
+    "predominant_ordering_str": "[E, W, S, N]"
+  },
+  {
+    "ordering_idx": 12,
+    "ordering": [
+      2,
+      0,
+      1,
+      3
+    ],
+    "ordering_label": "[S, N, E, W]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_12_S-N-E-W.npz",
+    "sigma_hash": "b6dbafeaedd76002de73bd19397cfb7b",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      2,
+      0,
+      1,
+      3
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[S, N, E, W]",
+    "predominant_ordering_str": "[S, N, E, W]"
+  },
+  {
+    "ordering_idx": 13,
+    "ordering": [
+      2,
+      0,
+      3,
+      1
+    ],
+    "ordering_label": "[S, N, W, E]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_13_S-N-W-E.npz",
+    "sigma_hash": "1baeb2f7428af27513097cbdd494030d",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      2,
+      0,
+      3,
+      1
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[S, N, W, E]",
+    "predominant_ordering_str": "[S, N, W, E]"
+  },
+  {
+    "ordering_idx": 14,
+    "ordering": [
+      2,
+      1,
+      0,
+      3
+    ],
+    "ordering_label": "[S, E, N, W]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_14_S-E-N-W.npz",
+    "sigma_hash": "727c693f93e9cbf74fc2b966d0dde299",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      2,
+      1,
+      0,
+      3
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[S, E, N, W]",
+    "predominant_ordering_str": "[S, E, N, W]"
+  },
+  {
+    "ordering_idx": 15,
+    "ordering": [
+      2,
+      1,
+      3,
+      0
+    ],
+    "ordering_label": "[S, E, W, N]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_15_S-E-W-N.npz",
+    "sigma_hash": "44b599334ec416e825cbf978d6e4e5aa",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      2,
+      1,
+      3,
+      0
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[S, E, W, N]",
+    "predominant_ordering_str": "[S, E, W, N]"
+  },
+  {
+    "ordering_idx": 16,
+    "ordering": [
+      2,
+      3,
+      0,
+      1
+    ],
+    "ordering_label": "[S, W, N, E]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_16_S-W-N-E.npz",
+    "sigma_hash": "6d87ab0b9d394df2026c10a5105d7717",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      2,
+      3,
+      0,
+      1
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[S, W, N, E]",
+    "predominant_ordering_str": "[S, W, N, E]"
+  },
+  {
+    "ordering_idx": 17,
+    "ordering": [
+      2,
+      3,
+      1,
+      0
+    ],
+    "ordering_label": "[S, W, E, N]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_17_S-W-E-N.npz",
+    "sigma_hash": "33f18307082936a9a252962ffbd00386",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      2,
+      3,
+      1,
+      0
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[S, W, E, N]",
+    "predominant_ordering_str": "[S, W, E, N]"
+  },
+  {
+    "ordering_idx": 18,
+    "ordering": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "ordering_label": "[W, N, E, S]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_18_W-N-E-S.npz",
+    "sigma_hash": "6a1ba41fb0a65010b6f059ac1171e752",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      3,
+      0,
+      1,
+      2
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[W, N, E, S]",
+    "predominant_ordering_str": "[W, N, E, S]"
+  },
+  {
+    "ordering_idx": 19,
+    "ordering": [
+      3,
+      0,
+      2,
+      1
+    ],
+    "ordering_label": "[W, N, S, E]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_19_W-N-S-E.npz",
+    "sigma_hash": "eb9e496b6f10b5fc7fe14ae60bd72df5",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      3,
+      0,
+      2,
+      1
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[W, N, S, E]",
+    "predominant_ordering_str": "[W, N, S, E]"
+  },
+  {
+    "ordering_idx": 20,
+    "ordering": [
+      3,
+      1,
+      0,
+      2
+    ],
+    "ordering_label": "[W, E, N, S]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_20_W-E-N-S.npz",
+    "sigma_hash": "8c6a0b830203d6363c6f3951e0aecb32",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      3,
+      1,
+      0,
+      2
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[W, E, N, S]",
+    "predominant_ordering_str": "[W, E, N, S]"
+  },
+  {
+    "ordering_idx": 21,
+    "ordering": [
+      3,
+      1,
+      2,
+      0
+    ],
+    "ordering_label": "[W, E, S, N]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_21_W-E-S-N.npz",
+    "sigma_hash": "2996abcdef66b99d9b3654f1039c50c1",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      3,
+      1,
+      2,
+      0
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[W, E, S, N]",
+    "predominant_ordering_str": "[W, E, S, N]"
+  },
+  {
+    "ordering_idx": 22,
+    "ordering": [
+      3,
+      2,
+      0,
+      1
+    ],
+    "ordering_label": "[W, S, N, E]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_22_W-S-N-E.npz",
+    "sigma_hash": "18fd5cfa840d492f18252d27c5b00976",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      3,
+      2,
+      0,
+      1
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[W, S, N, E]",
+    "predominant_ordering_str": "[W, S, N, E]"
+  },
+  {
+    "ordering_idx": 23,
+    "ordering": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "ordering_label": "[W, S, E, N]",
+    "npz_path": "/home/karen/phd-marlyn/gridFour/notebooks/alife-relabelled-actions/four_rooms/assets/global_ordering_comparison/ordering_npz/ordering_23_W-S-E-N.npz",
+    "sigma_hash": "e3c10559dc0b3c93c53f8c3f1d6c16e0",
+    "chi_align": 1.0,
+    "chi_twist": 0.0,
+    "predominant_ordering": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "mean_free_all_goals": 11.277334213256836,
+    "mean_info_all_goals": 4.299263954162598,
+    "mean_value_all_goals": -6.978055000305176,
+    "ordering_str": "[W, S, E, N]",
+    "predominant_ordering_str": "[W, S, E, N]"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "chi0_sigma_hash": "20003f484583775f42c63f43d5d9c3e2",
+  "chi0_mean_free": 11.277334462959043,
+  "chi0_mean_info": 4.299263516914241,
+  "chi0_epsilon_actual": 0.75,
+  "baseline_mean_free": 11.277334462959043,
+  "baseline_mean_info": 4.299263516914242,
+  "baseline_sigma_hash": "98d6fd77ab5c9fe3240082e765f93eca",
+  "difference_mean_free": 0.0,
+  "chi0_identity_states": [
+    4,
+    11,
+    25,
+    28,
+    29,
+    31,
+    32,
+    33,
+    38
+  ],
+  "chi0_nonwall_row": [
+    [
+      1,
+      3,
+      2,
+      0
+    ]
+  ]
+}

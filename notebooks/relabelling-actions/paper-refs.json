@@ -1,0 +1,24 @@
+{
+  "four_rooms": {
+    "init_method": "perm_balanced",
+    "fitness_objective": "decision_information",
+    "env_id": "four_rooms",
+    "shape": "7x7",
+    "beta": "1",
+    "det": "0.97",
+    "run_name": "prod-candidate-g200-b1-four-rooms-sp3011-09-20260309",
+    "best_sigma_hash": "24f551168e0469f95eea9fce2d976824",
+    "random_sigma_hash": "2612fc6e9f76f07eabc2585960d324cf",
+    "best_random_goal": 39,
+    "random_sigma_seed": 20260319
+  },
+  "wrap_grid": {
+    "init_method": "perm_balanced",
+    "fitness_objective": "decision_information",
+    "env_id": "wrap_grid",
+    "shape": "7x7",
+    "beta": "1",
+    "det": "0.97",
+    "run_name": "g200-pop-96-perm-bal-27-03-b1-di-ga-wrap-grid-r6-sp3011-08"
+  }
+}
