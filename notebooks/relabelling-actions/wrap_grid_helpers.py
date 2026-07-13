@@ -454,7 +454,7 @@ def build_interactive_mds(
     Returns the plotly Figure for inline display via fig.show() in notebooks.
     Optionally writes HTML to *out_html*.
     """
-    from experiments.MDS_plots.batch_collated_mds import (
+    from gridbench.reports.batch_collated_mds import (
         _active_states,
         _build_compact_state_map_traces,
         _build_metadata_text,
@@ -462,7 +462,7 @@ def build_interactive_mds(
         _make_sphere_trace,
         _node_colours_hex,
     )
-    from utility.geometry_plots import (
+    from gridvis.geometry_plots import (
         calculate_symmetric_adjacency_matrix,
         get_matrix_embedding,
     )
