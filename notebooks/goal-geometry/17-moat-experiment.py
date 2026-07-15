@@ -78,12 +78,29 @@ def founder(pattern):
     return np.asarray(json.load(open(sj))["history"][0]["best_sigma"], dtype=int)
 
 
-ANCHORS = {
-    "compass (perm_balanced founder)":
-        founder("core-silence-hunt-10-07/*s173*/*-multi-all.summary.json"),
-    "shuffle founder":
-        founder("core-silence-hunt2-shuffle-10-07/*s173*/*-multi-all.summary.json"),
-}
+import os
+
+def run_best(pattern):
+    import numpy as np, glob as g
+    return np.load(g.glob(str(BASE / pattern))[0]).astype(int)
+
+if os.environ.get("MOAT_ANCHORS") == "converged":
+    # The moat test proper: the two g500 run-bests (local optima).
+    ANCHORS = {
+        "balanced trap floor (g500 run-best)":
+            run_best("core-silence-hunt-10-07/*s173*/*-multi-all.sigma.npy"),
+        "silenced peak (g500 run-best)":
+            run_best("core-silence-hunt2-shuffle-10-07/*s173*/*-multi-all.sigma.npy"),
+    }
+    OUT_TAG = "converged"
+else:
+    ANCHORS = {
+        "compass (perm_balanced founder)":
+            founder("core-silence-hunt-10-07/*s173*/*-multi-all.summary.json"),
+        "shuffle founder":
+            founder("core-silence-hunt2-shuffle-10-07/*s173*/*-multi-all.summary.json"),
+    }
+    OUT_TAG = "founders"
 
 results = {}
 rng = random.Random(20260715)
@@ -103,7 +120,7 @@ for name, anchor in ANCHORS.items():
                          "d_max_cov": float(c.max() - c0.max())})
         print(f"  state {s} done ({len(rows)} mutants)", flush=True)
     results[name] = {"F0": F0, "usage0": u0.tolist(), "cov0": c0.tolist(), "mutants": rows}
-    (FIG_DIR / "moat_results.json").write_text(json.dumps(results, indent=1))
+    (FIG_DIR / f"moat_results_{OUT_TAG}.json").write_text(json.dumps(results, indent=1))
 
 # %% Figure
 fig, axes = plt.subplots(1, 2, figsize=(13, 5.4), dpi=150, sharey=True)
@@ -119,13 +136,12 @@ for ax, (name, res) in zip(axes, results.items()):
                c=[m["d_max_cov"] for m in d], cmap="coolwarm", vmin=-0.15, vmax=0.15)
     ax.axhline(0, color="grey", lw=0.8)
     ax.axvline(0, color="grey", lw=0.8, ls=":")
-    ax.set_title(f"{name}\nbeneficial: {ben}/{len(d)} "
-                 f"(of which basin-extending {ben_ext}); "
-                 f"usage-reducing deleterious: {del_red_bad}/{del_red}", fontsize=9)
+    ax.set_title(f"{name}\nbeneficial {ben}/{len(d)} (basin-ext.\ {ben_ext})\n"
+                 f"usage-reducing deleterious {del_red_bad}/{del_red}", fontsize=9)
     ax.set_xlabel("Δ min-label usage")
 axes[0].set_ylabel("Δ full-goal mean free energy  (mutant − founder)")
 sc = axes[1].collections[0]
 fig.colorbar(sc, ax=axes, label="Δ dominant coverage", shrink=0.8)
-out = FIG_DIR / "F-moat-experiment.png"
+out = FIG_DIR / f"F-moat-experiment-{OUT_TAG}.png"
 fig.savefig(out, bbox_inches="tight")
 print(f"saved {out}")
