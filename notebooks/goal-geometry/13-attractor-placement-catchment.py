@@ -151,6 +151,11 @@ GROUPS = [
      f'{BASE}/*/g*04-07-b1-free-ga-four-rooms-13x13*/*summary.json'),
     ('15x15 perm-bal', 15,
      f'{BASE}/*/g*04-07-b1-free-ga-four-rooms-15x15*/*summary.json'),
+    # catchment-scale ladder (synced 16-07): shuffle at 11x11/13x13
+    ('11x11 shuffle', 11,
+     f'{BASE}/core-catchment-scale-15-07/*four-rooms-11x11*/*summary.json'),
+    ('13x13 shuffle', 13,
+     f'{BASE}/core-catchment-scale-15-07/*four-rooms-13x13*/*summary.json'),
 ]
 
 for label, n, pat in GROUPS:
