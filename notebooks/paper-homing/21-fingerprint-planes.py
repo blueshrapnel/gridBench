@@ -183,19 +183,22 @@ PRIOR_STYLE = {"row_shuffle": ("#4477aa", "gen-0 prior: row-shuffle"),
                "perm_balanced": ("#228833", "gen-0 prior: permutation-balanced")}
 
 
-def prior_footprints(ax, env_id, xcol, ycol):
+def prior_footprints(ax, env_id, xcol, ycol, bits=False):
     """Two generation-zero prior footprints (95/99% KDE), replacing the
     uniform null: fresh-uniform and row-shuffle are the same law over
     fingerprint rows (twist-generation RESULT 2026-07-16)."""
     thresholds = {}
     for gen, (col, lab) in PRIOR_STYLE.items():
         d = _PRIORS[(_PRIORS.env_id == env_id) & (_PRIORS.generator == gen)]
-        xy = np.vstack([d[xcol], d[ycol]])
+        yv = -np.log2(np.clip(d[ycol], 1e-6, None)) if bits else d[ycol]
+        xy = np.vstack([d[xcol], yv])
         kde = gaussian_kde(xy)
         dens = kde(xy)
         t95, t99 = np.percentile(dens, 5), np.percentile(dens, 1)
         xg = np.linspace(d[xcol].min() - 1, d[xcol].max() + 1, 160)
-        yg = np.linspace(max(0, d[ycol].min() - .05), min(1.05, d[ycol].max() + .05), 160)
+        ylo, yhi = float(np.min(yv)), float(np.max(yv))
+        pad = 0.05 * (yhi - ylo + 1e-9)
+        yg = np.linspace(ylo - pad, yhi + pad, 160)
         XG, YG = np.meshgrid(xg, yg)
         Z = kde(np.vstack([XG.ravel(), YG.ravel()])).reshape(XG.shape)
         ax.contour(XG, YG, Z, levels=[t99, t95], colors=col,
@@ -273,18 +276,29 @@ def star_cohort(df, env_id):
     return pd.concat([rb, supp], ignore_index=True) if len(supp) else rb
 
 
-def make_ratio_fig(panels, outname):
+def _ycoord(vals, bits):
+    v = np.asarray(vals, dtype=float)
+    return -np.log2(np.clip(v, 1e-6, None)) if bits else v
+
+
+def make_ratio_fig(panels, outname, bits=False):
+    """The paper fingerprint figure; bits=True re-unitises the y axis as
+    Daniel's free-information reading, -log2 F (2026-05-22 meeting), a
+    monotone relabelling of the same geometry."""
     fig, axes = plt.subplots(1, 3, figsize=(18.6, 5.2), dpi=150)
     dfs = [load_cohort(e) for e in panels]
     lims = _shared_clims(dfs)
     for ax, env_id, df, (vmin, vmax) in zip(axes, panels, dfs, lims):
-        sc = ax.scatter(df.fp_n_basins, df.fp_cycle_basin_ratio, c=df.mean_free,
+        sc = ax.scatter(df.fp_n_basins, _ycoord(df.fp_cycle_basin_ratio, bits),
+                        c=df.mean_free,
                         s=4, alpha=0.25, cmap="viridis", rasterized=True,
                         vmin=vmin, vmax=vmax,
                         label=rf"all evaluated $\sigma$ (n={len(df):,})")
-        prior_footprints(ax, env_id, "fp_n_basins", "fp_cycle_basin_ratio")
+        prior_footprints(ax, env_id, "fp_n_basins", "fp_cycle_basin_ratio",
+                         bits=bits)
         rb = star_cohort(df, env_id)
-        ax.scatter(rb.fp_n_basins, rb.fp_cycle_basin_ratio, marker="*", s=210,
+        ax.scatter(rb.fp_n_basins, _ycoord(rb.fp_cycle_basin_ratio, bits),
+                   marker="*", s=210,
                    facecolors="none", edgecolors="crimson", linewidths=1.5,
                    label=f"GA run-bests, free-energy $K{{=}}1$ (n={len(rb)})",
                    zorder=5)
@@ -292,12 +306,17 @@ def make_ratio_fig(panels, outname):
               f"{rb.fp_cycle_basin_ratio.median():.2f}  nb med="
               f"{rb.fp_n_basins.median():.2f}", flush=True)
         cx, cy = cartesian_anchor(env_id)
-        ax.scatter([cx], [cy], marker="o", s=70, facecolors="none",
+        ax.scatter([cx], [_ycoord([cy], bits)[0]], marker="o", s=70,
+                   facecolors="none",
                    edgecolors="black", linewidths=1.8,
                    label="Cartesian identity", zorder=6)
-        ax.set_ylim(0, 1.05)
+        if bits:
+            ax.set_ylim(-0.15, 4.4)
+            ax.set_ylabel(r"free information  $-\log_2 F$  (bits)")
+        else:
+            ax.set_ylim(0, 1.05)
+            ax.set_ylabel("mean cycle/basin ratio  (fp_cycle_basin_ratio)")
         ax.set_xlabel("mean basins per label  (fp_n_basins)")
-        ax.set_ylabel("mean cycle/basin ratio  (fp_cycle_basin_ratio)")
         ax.set_title(f"{env_id}  {SHAPE[0]}x{SHAPE[1]}  " + r"$\beta=1$",
                      fontsize=12)
         leg = ax.legend(fontsize=8, loc="best", framealpha=0.9)
@@ -315,6 +334,10 @@ def make_ratio_fig(panels, outname):
 
 make_ratio_fig(PANELS_OPEN, "fingerprint_open_interiors.png")
 make_ratio_fig(PANELS_WALLED, "fingerprint_walled_interiors.png")
+# Candidate variants in Daniel's units (2026-07-17): same geometry, y in
+# bits of free information.  Swap into the paper only if adopted.
+make_ratio_fig(PANELS_OPEN, "fingerprint_open_interiors_bits.png", bits=True)
+make_ratio_fig(PANELS_WALLED, "fingerprint_walled_interiors_bits.png", bits=True)
 
 # %% sanity
 for e in PANELS_OPEN + PANELS_WALLED:
