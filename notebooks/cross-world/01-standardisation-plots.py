@@ -67,7 +67,7 @@ for ax, e in zip(axes.ravel(), ENVS):
 fig.suptitle("Null ensembles and the Cartesian, per world "
              "(same 2,016 lattice twists projected everywhere)", fontsize=12)
 fig.tight_layout()
-fig.savefig(FIGS / "null-distributions-cartesian.png", bbox_inches="tight")
+fig.savefig(FIGS / f"null-distributions-cartesian-seed{_args.seed}.png", bbox_inches="tight")
 print("saved figure 1")
 
 # %% Figure 2: z lollipop + null cross-world coupling
@@ -108,7 +108,7 @@ fig.colorbar(im, ax=a2, shrink=0.8, label="Spearman correlation")
 a2.set_title("Null cross-world coupling of $\\bar{F}$ (same twists)",
              fontsize=11)
 fig.tight_layout()
-fig.savefig(FIGS / "cartesian-z-and-coupling.png", bbox_inches="tight")
+fig.savefig(FIGS / f"cartesian-z-and-coupling-seed{_args.seed}.png", bbox_inches="tight")
 print("saved figure 2")
 print("coupling matrix (shuffle):")
 print(corr.round(2).to_string())
