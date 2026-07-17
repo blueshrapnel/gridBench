@@ -391,9 +391,60 @@ def runbest_chis(env_id):
     return out
 
 
+def palette_metrics(sigma, walls, n_walk, base_succ, idx):
+    """union coverage of label attractor-cycle cells + mean pairwise
+    Jaccard between the labels' cycle sets (gridFour nb-02 definitions)."""
+    sigma_inv = np.argsort(np.asarray(sigma, dtype=int), axis=1)
+    cycle_sets = []
+    for l in range(4):
+        fg = decompose(base_succ[sigma_inv[:, l], idx], walls=walls)
+        s = set()
+        for c in fg.cycles:
+            s.update(c)
+        cycle_sets.append(s)
+    jac = [len(a & b) / len(a | b) if (a | b) else 0.0
+           for i, a in enumerate(cycle_sets) for b in cycle_sets[i + 1:]]
+    return (len(set().union(*cycle_sets)) / n_walk,
+            float(np.mean(jac)) if jac else 0.0)
+
+
+def fourrooms_palette_cohorts(n_null=300):
+    env_id = "four_rooms"
+    env = build_goal_free_probe_env(env_id, SHAPE, DET)
+    walls = set(int(w) for w in np.ravel(getattr(env, "walls_flat")))
+    n_walk = SHAPE[0] * SHAPE[1] - len(walls)
+    base_succ = np.stack([deterministic_successor(env, a) for a in range(4)],
+                         axis=0)
+    idx = np.arange(SHAPE[0] * SHAPE[1])
+    rows, seen = [], set()
+    pats = ([f"{STORE}/init_method=*/fitness_objective=free_energy/env_id={env_id}/"
+             "shape=7x7/beta=1/det=0.97/run_name=*/*-multi-all.sigma.npy"] +
+            [f"{OUT_MIRROR}/{b}/*-four-rooms-7x7-*/*-multi-all.sigma.npy"
+             for b in SUPP_BASES])
+    for pat in pats:
+        for sg in _glob.glob(pat):
+            name = Path(sg).parent.name.replace("run_name=", "")
+            if name in seen or "gss" in name or _re.search(r"k0\d\d", name):
+                continue
+            if OUT_MIRROR in sg and "-b1-free-" not in name:
+                continue
+            seen.add(name)
+            u, j = palette_metrics(np.load(sg), walls, n_walk, base_succ, idx)
+            rows.append({"union": u, "jaccard": j,
+                         "group": "shuffle" if ("shuffle" in name or
+                                                "prod-baseline" in name)
+                         else "perm_balanced"})
+    rng = np.random.default_rng(20260718)
+    for _ in range(n_null):
+        sig = np.stack([rng.permutation(4) for _ in range(SHAPE[0] * SHAPE[1])])
+        u, j = palette_metrics(sig, walls, n_walk, base_succ, idx)
+        rows.append({"union": u, "jaccard": j, "group": "null"})
+    return pd.DataFrame(rows)
+
+
 PALETTE_ORDER = PANELS_OPEN + PANELS_WALLED
-fig, (axA, axB) = plt.subplots(1, 2, figsize=(15.2, 5.4), dpi=150,
-                               gridspec_kw={"width_ratios": [1.15, 1]})
+fig, (axA, axB, axC) = plt.subplots(1, 3, figsize=(19.6, 5.4), dpi=150,
+                                    gridspec_kw={"width_ratios": [1.2, 1, 1]})
 
 # (a) chi strip
 rng = np.random.default_rng(7)
@@ -418,7 +469,7 @@ axA.scatter([], [], marker="*", s=150, facecolors="none", edgecolors="crimson",
 axA.scatter([], [], marker="s", s=55, facecolors="none", edgecolors="crimson",
             label="run-best, row-shuffle")
 axA.set_xticks(range(len(PALETTE_ORDER)))
-axA.set_xticklabels([e.replace("_", "\_") for e in PALETTE_ORDER],
+axA.set_xticklabels(PALETTE_ORDER,
                     rotation=20, ha="right", fontsize=9)
 axA.axvline(2.5, color="lightgrey", lw=0.8)
 axA.set_ylabel(r"run-best $\chi_{\mathrm{twist}}$")
@@ -454,7 +505,7 @@ axB.scatter([cx], [cy], marker="o", s=70, facecolors="none",
 axB.set_ylim(0, 1.05)
 axB.set_xlabel("mean basins per label  (fp_n_basins)")
 axB.set_ylabel("mean cycle/basin ratio  (fp_cycle_basin_ratio)")
-axB.set_title("four_rooms 7x7: the two families on the ratio plane", fontsize=11)
+axB.set_title("four_rooms 7x7: the ratio plane cannot separate them", fontsize=11)
 leg = axB.legend(fontsize=7, loc="lower right", framealpha=0.9)
 for h in leg.legend_handles:
     try:
@@ -462,6 +513,25 @@ for h in leg.legend_handles:
     except AttributeError:
         pass
 _uniform_colorbar(fig, sc, axB)
+
+# (c) the palette plane: the relational statistics separate the families
+pal = fourrooms_palette_cohorts()
+nul = pal[pal.group == "null"]
+axC.scatter(nul.union, nul.jaccard, s=14, alpha=0.35, color="lightgrey",
+            label=f"row-shuffle null (n={len(nul)})")
+for grp, m, s, col, lab in [
+        ("perm_balanced", "*", 170, "crimson", "permutation-balanced run-bests"),
+        ("shuffle", "s", 60, "black", "row-shuffle run-bests")]:
+    g = pal[pal.group == grp]
+    axC.scatter(g.union, g.jaccard, marker=m, s=s, facecolors="none",
+                edgecolors=col, linewidths=1.4, label=f"{lab} (n={len(g)})")
+    print(f"palette {grp}: n={len(g)} union med={g.union.median():.3f} "
+          f"jaccard med={g.jaccard.median():.3f}", flush=True)
+axC.set_xlabel("union coverage of label cycles")
+axC.set_ylabel("mean pairwise Jaccard of cycle sets")
+axC.set_title("four_rooms 7x7: the palette plane separates them", fontsize=11)
+axC.legend(fontsize=7, framealpha=0.9)
+
 fig.tight_layout()
 out = FIG_DIR / "alignment_roundup.png"
 fig.savefig(out, bbox_inches="tight")
