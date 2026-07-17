@@ -1,0 +1,19 @@
+environment,class,label,coverage,n_basins,cycle_length,random_seed,run_name
+wrap_grid,Cartesian,N,0.14285714285714285,7,7,,
+helical,Cartesian,N,1.0,1,49,,
+open_grid,Cartesian,N,0.14285714285714285,7,1,,
+pinwheel,Cartesian,N,0.21875,14,1,,
+pillar_3,Cartesian,N,0.175,10,1,,
+four_rooms,Cartesian,N,0.175,12,1,,
+wrap_grid,Paired random,E,0.3673469387755102,5,2,3011.0,
+helical,Paired random,E,0.40816326530612246,5,2,3011.0,
+open_grid,Paired random,S,0.2857142857142857,13,2,3011.0,
+pinwheel,Paired random,E,0.21875,16,1,3011.0,
+pillar_3,Paired random,W,0.3,11,1,3011.0,
+four_rooms,Paired random,S,0.25,17,2,3011.0,
+wrap_grid,Evolved exemplar,E,1.0,1,2,,g200-pop-96-perm-bal-17-06-b1-free-ga-wrap-grid-fediv-sp3011-08
+helical,Evolved exemplar,N,1.0,1,2,,g200-pop-96-perm-bal-24-05-b1-free-ga-corkscrew-7x7-k100-sp3011-12
+open_grid,Evolved exemplar,W,0.9387755102040817,4,2,,g200-pop-96-perm-bal-24-03-b1-free-ga-open-grid-sp3011-10
+pinwheel,Evolved exemplar,E,0.4375,10,2,,g200-pop-96-perm-bal-06-06-b1-free-ga-pinwheel-7x7-k100-sp3011-16
+pillar_3,Evolved exemplar,N,0.55,13,2,,g200-pop-96-perm-bal-20-03-b1-free-ga-pillar-3-7x7-sp3011-08
+four_rooms,Evolved exemplar,S,0.775,8,4,,g500-pop-96-perm-bal-07-06-b1-free-ga-four-rooms-7x7-k100-sp3011-06-survey

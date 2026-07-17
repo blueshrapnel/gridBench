@@ -1,0 +1,4 @@
+case,label,label_index,largest_basin_coverage,home_label_mean_rho,home_label_max_rho,walk_moves_to_first_repeat,start_state,start_row,start_col,fp_mean_rho,fp_diameter
+Cartesian,N,0,0.175,2.75,7,7,48,6,6,2.7375,7.0
+Random twist,W,3,0.175,2.35,7,7,5,0,5,2.1625,7.0
+Highest-reach run-best,W,3,0.85,10.725,19,19,48,6,6,5.762499999999999,19.0

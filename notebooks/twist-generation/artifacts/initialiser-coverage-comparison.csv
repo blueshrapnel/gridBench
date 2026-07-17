@@ -1,0 +1,7 @@
+env_id,generator,n,run_best_median,prior_coverage_median,prior_coverage_max,n_at_or_above_run_best_median,run_bests_inside_95,run_bests_inside_99
+open_grid,row_shuffle,2016,0.7959183673469388,0.3469387755102041,0.7755102040816326,0,0,0
+open_grid,perm_balanced,2016,0.7959183673469388,0.3469387755102041,0.7755102040816326,0,3,9
+pinwheel,row_shuffle,2016,0.375,0.1875,0.375,5,0,0
+pinwheel,perm_balanced,2016,0.375,0.21875,0.46875,9,0,0
+four_rooms,row_shuffle,2016,0.4875,0.25,0.55,4,0,0
+four_rooms,perm_balanced,2016,0.4875,0.25,0.5,1,0,3
