@@ -31,9 +31,12 @@ def _nb_dir(default: str) -> Path:
 
 NB_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/cross-world"
                  "/01-standardisation-plots.py")
-DATA, FIGS = NB_DIR / "data", NB_DIR / "figs"
-FIGS.mkdir(exist_ok=True)
-
+import argparse
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--seed", type=int, default=20260718)
+_args, _ = _ap.parse_known_args()
+DATA = NB_DIR / "results" / f"seed{_args.seed}"
+FIGS = DATA
 ENVS = ["wrap_grid", "open_grid", "helical", "pinwheel", "four_rooms", "pillar_3"]
 df = pd.read_parquet(DATA / "null_standardisation_full2016.parquet")
 con = json.loads((DATA / "constants_full2016.json").read_text())

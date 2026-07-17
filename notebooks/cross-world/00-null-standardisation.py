@@ -51,12 +51,12 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 ENVS = ["wrap_grid", "open_grid", "helical", "pinwheel", "four_rooms", "pillar_3"]
 SHAPE, DET, BETA = (7, 7), 0.97, 1.0
 NS = SHAPE[0] * SHAPE[1]
-MASTER_SEED = 20260718
+DEFAULT_SEED = 20260718
 N_FULL = 2016  # 21 x 96
 
 
 # %% Draws: once, on the full lattice
-def draw_ensembles(n: int):
+def draw_ensembles(n: int, master_seed: int):
     from evolution_core.initial_population import (
         build_individual_genes, build_population_perm_balanced,
     )
@@ -65,7 +65,7 @@ def draw_ensembles(n: int):
     def genes_to_sigma(genes):
         return np.asarray(genes, dtype=int).reshape(NS, 4)
 
-    rng = random.Random(MASTER_SEED)
+    rng = random.Random(master_seed)
     pb = []
     while len(pb) < n:
         pop, _ = build_population_perm_balanced(
@@ -76,7 +76,7 @@ def draw_ensembles(n: int):
         pb.extend(pop)
     pb = np.stack([genes_to_sigma(g) for g in pb[:n]])
 
-    rng2 = random.Random(MASTER_SEED + 1)
+    rng2 = random.Random(master_seed + 1)
     sh = np.stack([genes_to_sigma(build_individual_genes(
         state_order=state_order, n_actions=4, init_mode="shuffle",
         target_epsilon=None, init_derangement_prob=0.5,
@@ -145,13 +145,16 @@ def main():
     ap.add_argument("--sample", type=int, default=None,
                     help="evaluate only the first N draws per ensemble")
     ap.add_argument("--workers", type=int, default=10)
+    ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
     a = ap.parse_args()
     n = a.sample or N_FULL
     tag = f"sample{n}" if a.sample else f"full{n}"
+    out_dir = NB_DIR / "results" / f"seed{a.seed}"
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    stacks = draw_ensembles(N_FULL)
+    stacks = draw_ensembles(N_FULL, a.seed)
     for name, arr in stacks.items():
-        f = DATA_DIR / f"draws_{name}_n{N_FULL}_seed{MASTER_SEED}.npz"
+        f = out_dir / f"draws_{name}_n{N_FULL}_seed{a.seed}.npz"
         if not f.exists():
             np.savez_compressed(f, sigmas=arr)
     cart = np.tile(np.arange(4), (NS, 1))
@@ -172,7 +175,7 @@ def main():
             if (k + 1) % 120 == 0:
                 print(f"  {k + 1}/{len(tasks)}", flush=True)
     df = pd.DataFrame(rows)
-    out = DATA_DIR / f"null_standardisation_{tag}.parquet"
+    out = out_dir / f"null_standardisation_{tag}.parquet"
     df.to_parquet(out)
     print(f"wrote {out}")
 
@@ -189,12 +192,12 @@ def main():
                   "cartesian_mean_free": fc,
                   "cartesian_z": (fc - mu) / s if s else float("nan"),
                   "perm_balanced_median": float(pb.median()),
-                  "ensemble": "shuffle", "seed": MASTER_SEED,
+                  "ensemble": "shuffle", "seed": a.seed,
                   "method": "median/1.4826*MAD"}
         print(f"{e:12} mu={mu:8.3f}  s={s:6.3f}  "
               f"Cart={fc:8.3f}  z(Cart)={con[e]['cartesian_z']:+7.2f}  "
               f"pbal med={con[e]['perm_balanced_median']:8.3f}", flush=True)
-    cf = DATA_DIR / f"constants_{tag}.json"
+    cf = out_dir / f"constants_{tag}.json"
     cf.write_text(json.dumps(con, indent=1))
     print(f"wrote {cf}" + ("" if a.sample else "  (FROZEN)"))
 
