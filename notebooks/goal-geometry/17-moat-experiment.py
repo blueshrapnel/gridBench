@@ -38,7 +38,18 @@ BASE = Path("/media/merlin/grid-twist/gridtwist-outputs")
 WALLS = {4, 11, 25, 28, 29, 31, 32, 33, 38}
 WALK = [s for s in range(49) if s not in WALLS]
 PERMS = [list(p) for p in permutations(range(4))]
-FIG_DIR = Path(__file__).resolve().parent / "figs"
+def _nb_dir(default: str) -> Path:
+    """Directory of this notebook: __file__ when run as a script, the
+    jupytext/Jupyter-safe fallback otherwise (kernel cwd if it matches,
+    else the canonical repo path)."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        return cwd if (cwd / Path(default).name).exists() or cwd.name == Path(default).parent.name else Path(default).parent
+
+
+FIG_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/goal-geometry/17-moat-experiment.py") / "figs"
 N_MUT_PER_STATE = 6
 
 probe = build_goal_free_probe_env("four_rooms", (7, 7), 0.97)

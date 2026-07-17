@@ -41,7 +41,18 @@ COHORTS = {
     "shuffle": "core-silence-hunt2-shuffle-10-07",
 }
 ACT = "NESW"
-FIG_DIR = Path(__file__).resolve().parent / "figs"
+def _nb_dir(default: str) -> Path:
+    """Directory of this notebook: __file__ when run as a script, the
+    jupytext/Jupyter-safe fallback otherwise (kernel cwd if it matches,
+    else the canonical repo path)."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        return cwd if (cwd / Path(default).name).exists() or cwd.name == Path(default).parent.name else Path(default).parent
+
+
+FIG_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/goal-geometry/14-seed-strips-four-label.py") / "figs"
 FIG_DIR.mkdir(exist_ok=True)
 
 env = build_goal_free_probe_env("four_rooms", (7, 7), 0.97)

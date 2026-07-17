@@ -28,7 +28,18 @@ from gridbench.functional_graph.decomposition import decompose, deterministic_su
 from gridbench.functional_graph.probe_env import build_goal_free_probe_env
 
 BASE = Path("/media/merlin/grid-twist/gridtwist-outputs")
-FIG_DIR = Path(__file__).resolve().parent / "figs"
+def _nb_dir(default: str) -> Path:
+    """Directory of this notebook: __file__ when run as a script, the
+    jupytext/Jupyter-safe fallback otherwise (kernel cwd if it matches,
+    else the canonical repo path)."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        return cwd if (cwd / Path(default).name).exists() or cwd.name == Path(default).parent.name else Path(default).parent
+
+
+FIG_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/goal-geometry/15-saturation-plane.py") / "figs"
 
 RUNS = []  # (glob, marker, label)
 GROUPS = [

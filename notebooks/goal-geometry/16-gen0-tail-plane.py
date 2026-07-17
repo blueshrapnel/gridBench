@@ -37,7 +37,18 @@ POP, SEED = 96, 173205080
 WALLS = {4, 11, 25, 28, 29, 31, 32, 33, 38}
 STATE_ORDER = [s for s in range(49) if s not in WALLS]
 ORDS = np.array(list(permutations(range(4))))
-FIG_DIR = Path(__file__).resolve().parent / "figs"
+def _nb_dir(default: str) -> Path:
+    """Directory of this notebook: __file__ when run as a script, the
+    jupytext/Jupyter-safe fallback otherwise (kernel cwd if it matches,
+    else the canonical repo path)."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        return cwd if (cwd / Path(default).name).exists() or cwd.name == Path(default).parent.name else Path(default).parent
+
+
+FIG_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/goal-geometry/16-gen0-tail-plane.py") / "figs"
 
 env = build_goal_free_probe_env("four_rooms", (7, 7), 0.97)
 GOALS = STATE_ORDER

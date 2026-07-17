@@ -34,8 +34,20 @@ from gridbench.functional_graph.decomposition import (
 )
 from gridbench.functional_graph.probe_env import build_goal_free_probe_env
 
-FIG_DIR = Path(__file__).resolve().parent / "figs"
-FIG_DIR.mkdir(exist_ok=True)
+def _nb_dir(default: str) -> Path:
+    """Directory of this notebook: __file__ when run as a script, the
+    jupytext/Jupyter-safe fallback otherwise (kernel cwd if it matches,
+    else the canonical repo path)."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        return cwd if (cwd / Path(default).name).exists() or cwd.name == Path(default).parent.name else Path(default).parent
+
+
+NB_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/fingerprint-metrics/00-bits-and-palette.py")
+FIG_DIR = NB_DIR / "figs"
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 ENV_ID, SHAPE, DET = "four_rooms", (7, 7), 0.97
 OUT = "/media/merlin/grid-twist/gridtwist-outputs"
 STORE = "/media/merlin/grid-twist/data-schema-11/multi"
