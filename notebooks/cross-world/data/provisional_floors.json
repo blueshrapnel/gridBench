@@ -1,0 +1,38 @@
+{
+ "wrap_grid": {
+  "floor_F": 6.045416968325811,
+  "mu": 7.977441655685006,
+  "s": 0.08243792219051346,
+  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+ },
+ "open_grid": {
+  "floor_F": 7.6785593433953965,
+  "mu": 10.59960885177578,
+  "s": 0.1059598012078598,
+  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+ },
+ "helical": {
+  "floor_F": 6.007080325695282,
+  "mu": 7.9548234763767365,
+  "s": 0.08466114618847023,
+  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+ },
+ "pinwheel": {
+  "floor_F": 11.304721085377018,
+  "mu": 16.785615292252743,
+  "s": 0.2114644862503797,
+  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+ },
+ "four_rooms": {
+  "floor_F": 9.32230661835937,
+  "mu": 13.224647295891906,
+  "s": 0.17643056367040796,
+  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+ },
+ "pillar_3": {
+  "floor_F": 8.712165826424954,
+  "mu": 12.753694226168244,
+  "s": 0.17490835947875777,
+  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+ }
+}
