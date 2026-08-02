@@ -53,6 +53,10 @@ def _nb_dir(default: str) -> Path:
 
 
 FIG_DIR = _nb_dir("/media/merlin/phd-marlyn/gridBench/notebooks/goal-geometry/14-seed-strips-four-label.py") / "figs"
+PAPER_FIGURE = Path(
+    "/home/karen/Dropbox/phd/writing/twists-home-vectors/figures/"
+    "F-seed-strips-four-label.png"
+)
 FIG_DIR.mkdir(exist_ok=True)
 
 env = build_goal_free_probe_env("four_rooms", (7, 7), 0.97)
@@ -125,4 +129,6 @@ for ax, cohort in zip(axes, COHORTS):
 fig.colorbar(im, ax=axes, label="per-label coverage", shrink=0.6)
 out = FIG_DIR / "F-seed-strips-four-label.png"
 fig.savefig(out, bbox_inches="tight")
+fig.savefig(PAPER_FIGURE, bbox_inches="tight")
 print(f"saved {out}")
+print(f"saved {PAPER_FIGURE}")

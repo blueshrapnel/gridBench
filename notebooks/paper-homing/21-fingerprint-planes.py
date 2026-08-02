@@ -50,6 +50,14 @@ from gridbench.functional_graph.probe_env import build_goal_free_probe_env
 
 FIG_DIR = _NB_PATH.parent / "figs"
 FIG_DIR.mkdir(exist_ok=True)
+PAPER_FIG_DIR = Path(
+    "/home/karen/Dropbox/phd/writing/twists-home-vectors/figures"
+)
+PAPER_FIG_DIR.mkdir(parents=True, exist_ok=True)
+PAPER_RATIO_NAMES = {
+    "fingerprint_open_interiors.png": "F-fingerprint-open-interiors.png",
+    "fingerprint_walled_interiors.png": "F-fingerprint-walled-interiors.png",
+}
 
 CACHE_ROOT = Path("/media/merlin/grid-twist/data-schema-11/cache/functional_graph")
 DET = 0.97
@@ -330,6 +338,10 @@ def make_ratio_fig(panels, outname, bits=False):
     out = FIG_DIR / outname
     fig.savefig(out, bbox_inches="tight")
     print(f"saved {out}")
+    if outname in PAPER_RATIO_NAMES:
+        paper_out = PAPER_FIG_DIR / PAPER_RATIO_NAMES[outname]
+        fig.savefig(paper_out, bbox_inches="tight")
+        print(f"saved {paper_out}")
 
 
 make_ratio_fig(PANELS_OPEN, "fingerprint_open_interiors.png")
@@ -535,4 +547,7 @@ axC.legend(fontsize=7, framealpha=0.9)
 fig.tight_layout()
 out = FIG_DIR / "alignment_roundup.png"
 fig.savefig(out, bbox_inches="tight")
+paper_out = PAPER_FIG_DIR / "F-alignment-roundup.png"
+fig.savefig(paper_out, bbox_inches="tight")
 print(f"saved {out}")
+print(f"saved {paper_out}")

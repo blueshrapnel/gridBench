@@ -11,6 +11,7 @@ receives a frozen, self-contained bundle only at publish time (see below).
 |---|---|
 | `figure-1-simplified.ipynb` | `figure1_ga_sigma_simple` |
 | `figure-2-simplified.ipynb` | `figure2_random_sigma` |
+| `figure-3-tradeoff.py` | `figure3_tradeoff_curve` and twists-home-vectors Figure 3 |
 | `figure-5-env-survey.ipynb` | `figure5_envs` (+ per-env / diagnostic / per-action panels) |
 | `figure-6.ipynb` | `figure-6-*` (per-action direction, per-goal structure) |
 
@@ -39,6 +40,11 @@ jupyter nbconvert --to notebook --execute --inplace \
   --ExecutePreprocessor.kernel_name=python3 figure-6.ipynb
 ```
 Figures land in `./figures/`.
+
+`figure-3-tradeoff.py` is intentionally data-only: it renders the committed
+all-goal CSV in `four_rooms/assets/ga_evolution/` and does not import or rerun
+the frozen gridFour report stack.  It also exports `F-alife-tradeoff.pdf`
+directly to the twists-home-vectors paper.
 
 ## Publish freeze (manual, once-off per paper — do NOT over-automate)
 

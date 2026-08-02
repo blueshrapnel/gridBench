@@ -10,6 +10,7 @@ is retained as provenance.
 |---|---|
 | `00-four-rooms-reach-exemplar.py` | Rebuild the twists-home-vectors per-state reach exemplar from Cartesian, a fixed random twist, and the highest-mean-reach full-goal GA run-best.  Audits tied random home labels and the evolved-run selection. |
 | `01-reach-by-class-two-shapes.py` | Compare Cartesian, row-shuffle-null, and GA-best mean single-label reach at two grid sizes across the six retained paper environments.  Supersedes the legacy gridFour notebook and excludes `x_wall`. |
+| `02-random-twist-diffusion.py` | Reproduce the 50×50 random-twist trajectory streaks and diffusion summary, using the ported functional-graph reach/null modules and an optional local derived cache. |
 
 The notebook uses current `gridbench` functional-graph code, writes figures to
 `figures/`, and records its exact run and case selections in `artifacts/`.

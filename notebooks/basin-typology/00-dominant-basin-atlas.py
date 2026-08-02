@@ -23,8 +23,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.colors import to_rgba
+from gridbench.papers.home_vectors import WALL_COLOUR
 
-import gridbench
 from gridbench.functional_graph.decomposition import (
     decompose,
     deterministic_successor,
@@ -32,11 +32,28 @@ from gridbench.functional_graph.decomposition import (
 from gridbench.functional_graph.probe_env import build_goal_free_probe_env
 
 
-GRIDBENCH_ROOT = Path(gridbench.__file__).resolve().parents[2]
-HERE = GRIDBENCH_ROOT / "notebooks" / "basin-typology"
+def _nb_dir(default: str) -> Path:
+    """Resolve correctly as a script and from a jupytext/Jupyter kernel."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        default_path = Path(default)
+        if (cwd / default_path.name).exists() or cwd.name == default_path.parent.name:
+            return cwd
+        return default_path.parent
+
+
+HERE = _nb_dir(
+    "/home/karen/phd-marlyn/gridBench/notebooks/basin-typology/"
+    "00-dominant-basin-atlas.py"
+)
 FIGURE_DIR = HERE / "figures"
 ARTIFACT_DIR = HERE / "artifacts"
-for directory in (FIGURE_DIR, ARTIFACT_DIR):
+PAPER_FIGURE_DIR = Path(
+    "/home/karen/Dropbox/phd/writing/twists-home-vectors/figures"
+)
+for directory in (FIGURE_DIR, ARTIFACT_DIR, PAPER_FIGURE_DIR):
     directory.mkdir(parents=True, exist_ok=True)
 
 DATA_ROOT = Path("/media/merlin/grid-twist/data-schema-10/multi")
@@ -276,7 +293,7 @@ OTHER_BASIN_COLOURS = [
     )
 ]
 DOMINANT_COLOUR = np.array([0.10, 0.45, 0.78, 0.88])
-WALL_COLOUR = np.array([0.12, 0.12, 0.12, 1.00])
+WALL_RGBA = np.asarray(to_rgba(WALL_COLOUR))
 EMPTY_COLOUR = np.array([0.94, 0.94, 0.94, 1.00])
 CYCLE_COLOUR = "#FFCD00"
 
@@ -294,7 +311,7 @@ def render_panel(ax, environment: str, class_name: str) -> dict[str, object]:
     for state in range(int(env.nS)):
         row, column = divmod(state, width)
         if state in walls:
-            image[row, column] = WALL_COLOUR
+            image[row, column] = WALL_RGBA
             continue
         basin = int(graph.basin_id[state])
         if basin == selected.dominant_basin:
@@ -386,7 +403,10 @@ png_path = FIGURE_DIR / "F-dominant-basin-atlas.png"
 pdf_path = FIGURE_DIR / "F-dominant-basin-atlas.pdf"
 figure.savefig(png_path, dpi=300, bbox_inches="tight")
 figure.savefig(pdf_path, bbox_inches="tight")
+paper_path = PAPER_FIGURE_DIR / "F-dominant-basin-atlas.pdf"
+figure.savefig(paper_path, bbox_inches="tight")
 print(panel_data.to_string(index=False))
 print(f"saved {panel_path}")
 print(f"saved {png_path}")
 print(f"saved {pdf_path}")
+print(f"saved {paper_path}")

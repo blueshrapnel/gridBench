@@ -24,20 +24,38 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-import gridbench
 from gridbench.functional_graph.decomposition import (
     decompose,
     deterministic_successor,
 )
 from gridbench.functional_graph.fingerprint import fingerprint_for_sigma
 from gridbench.functional_graph.probe_env import build_goal_free_probe_env
+from gridbench.papers.home_vectors import WALL_COLOUR
 
 
-GRIDBENCH_ROOT = Path(gridbench.__file__).resolve().parents[2]
-HERE = GRIDBENCH_ROOT / "notebooks" / "single-label-reach"
+def _nb_dir(default: str) -> Path:
+    """Resolve correctly as a script and from a jupytext/Jupyter kernel."""
+    try:
+        return Path(__file__).resolve().parent
+    except NameError:
+        cwd = Path.cwd().resolve()
+        default_path = Path(default)
+        if (cwd / default_path.name).exists() or cwd.name == default_path.parent.name:
+            return cwd
+        return default_path.parent
+
+
+HERE = _nb_dir(
+    "/home/karen/phd-marlyn/gridBench/notebooks/single-label-reach/"
+    "00-four-rooms-reach-exemplar.py"
+)
 FIGURE_DIR = HERE / "figures"
 ARTIFACT_DIR = HERE / "artifacts"
-for directory in (FIGURE_DIR, ARTIFACT_DIR):
+PAPER_FIGURE = Path(
+    "/home/karen/Dropbox/phd/writing/twists-home-vectors/figures/"
+    "F-reach-trajectories.png"
+)
+for directory in (FIGURE_DIR, ARTIFACT_DIR, PAPER_FIGURE.parent):
     directory.mkdir(parents=True, exist_ok=True)
 
 DATA_ROOT = Path("/media/merlin/grid-twist/data-schema-10/multi")
@@ -332,7 +350,7 @@ for ax, (name, result, path) in zip(axes, decomposed_cases):
                 (state % width - 0.5, state // width - 0.5),
                 1,
                 1,
-                color="0.35",
+                color=WALL_COLOUR,
             )
         )
 
@@ -363,6 +381,7 @@ fig.suptitle(
 fig.tight_layout()
 figure_path = FIGURE_DIR / "F-reach-trajectories.png"
 fig.savefig(figure_path, bbox_inches="tight")
+fig.savefig(PAPER_FIGURE, bbox_inches="tight")
 print(f"saved {figure_path}")
+print(f"saved {PAPER_FIGURE}")
 plt.show()
-
