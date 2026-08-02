@@ -30,6 +30,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from gridbench.papers.cross_world_null import validated_free_energy_mean
+
 warnings.filterwarnings("ignore")
 sys.path.insert(0, "/media/merlin/phd-marlyn/gridTwist/src")
 
@@ -90,18 +92,34 @@ _worker_env = {}
 
 def _env_pack(env_id):
     if env_id not in _worker_env:
-        from gridbench.functional_graph.decomposition import (
-            decompose, deterministic_successor, per_label_stats,
-        )
-        from gridbench.functional_graph.probe_env import build_goal_free_probe_env
-        env = build_goal_free_probe_env(env_id, SHAPE, DET)
-        wf = getattr(env, "walls_flat", None)
-        walls = set(int(w) for w in np.ravel(wf)) if wf is not None else set()
-        walk = [s for s in range(NS) if s not in walls]
-        base = np.stack([deterministic_successor(env, a) for a in range(4)],
-                        axis=0)
-        _worker_env[env_id] = (walls, walk, base,
-                               decompose, per_label_stats)
+        if str(env_id).lower().startswith("fr-"):
+            # four-rooms stack family: the gridbench probe builder does not
+            # know these ids, so read walls/walkable through gridcore and
+            # skip the fingerprint block (mean_free is all the constants
+            # need; fp_* columns come out NaN for these worlds).
+            from gridcore.bridge import (EvalConfig,
+                                         build_twisted_env_from_sigma)
+            cfg = EvalConfig(env_id=env_id, shape=SHAPE, goal=0, beta=BETA,
+                             determinism=DET, manhattan=True, theta=1e-5,
+                             state_dist="uniform")
+            ident = np.tile(np.arange(4), (NS, 1))
+            env = build_twisted_env_from_sigma(ident, cfg)
+            walk = [int(s) for s in env.available_states]
+            walls = set(range(NS)) - set(walk)
+            _worker_env[env_id] = (walls, walk, None, None, None)
+        else:
+            from gridbench.functional_graph.decomposition import (
+                decompose, deterministic_successor, per_label_stats,
+            )
+            from gridbench.functional_graph.probe_env import build_goal_free_probe_env
+            env = build_goal_free_probe_env(env_id, SHAPE, DET)
+            wf = getattr(env, "walls_flat", None)
+            walls = set(int(w) for w in np.ravel(wf)) if wf is not None else set()
+            walk = [s for s in range(NS) if s not in walls]
+            base = np.stack([deterministic_successor(env, a) for a in range(4)],
+                            axis=0)
+            _worker_env[env_id] = (walls, walk, base,
+                                   decompose, per_label_stats)
     return _worker_env[env_id]
 
 
@@ -123,36 +141,38 @@ def eval_one(args):
         di = GC_DI(e, _state_dist_class("uniform")(e), 1e-5,
                    max_iterations=200_000, max_info_iterations=10_000)
         _, _, F = di.get_opt_policy_Z_free_vector(1.0)
-        # 2026-08-02 review: a null constant built on a silently unconverged
-        # solve would poison every downstream z.  Fail loudly instead.
-        if not bool(getattr(di, "converged", True)):
-            raise RuntimeError(
-                f"free-energy solve did not converge: ensemble={ensemble} "
-                f"draw={draw_id} env={env_id} goal={g} "
-                f"iterations={getattr(di, 'iteration_count', -1)}"
-            )
-        max_iters = max(max_iters, int(getattr(di, "iteration_count", 0)))
-        max_residual = max(
-            max_residual, float(getattr(di, "last_blahut_residual", 0.0))
+        mean_free, iterations, residual = validated_free_energy_mean(
+            di,
+            F,
+            walk,
+            context=(
+                f"ensemble={ensemble} draw={draw_id} env={env_id} goal={g}"
+            ),
         )
-        tot += float(np.asarray(F, dtype=float)[walk].mean())
-    sigma_inv = np.argsort(sigma, axis=1)
-    idx = np.arange(NS)
-    nb, cbr, cov = [], [], []
-    for l in range(4):
-        fg = decompose(base[sigma_inv[:, l], idx], walls=walls)
-        st = per_label_stats(fg)
-        nb.append(st["n_basins"])
-        cbr.append(st["cycle_basin_ratio"])
-        sizes = np.asarray(fg.basin_sizes, dtype=int)
-        cov.append(sizes.max() / len(walk) if sizes.size else 0.0)
+        max_iters = max(max_iters, iterations)
+        max_residual = max(max_residual, residual)
+        tot += mean_free
+    if decompose is None:
+        fp_nb = fp_cbr = fp_cov = float("nan")
+    else:
+        sigma_inv = np.argsort(sigma, axis=1)
+        idx = np.arange(NS)
+        nb, cbr, cov = [], [], []
+        for l in range(4):
+            fg = decompose(base[sigma_inv[:, l], idx], walls=walls)
+            st = per_label_stats(fg)
+            nb.append(st["n_basins"])
+            cbr.append(st["cycle_basin_ratio"])
+            sizes = np.asarray(fg.basin_sizes, dtype=int)
+            cov.append(sizes.max() / len(walk) if sizes.size else 0.0)
+        fp_nb, fp_cbr, fp_cov = float(np.mean(nb)), float(np.mean(cbr)), float(max(cov))
     return {"ensemble": ensemble, "draw_id": draw_id, "env_id": env_id,
             "mean_free": tot / len(walk),
             "max_blahut_iterations": int(max_iters),
             "max_blahut_residual": float(max_residual),
-            "fp_n_basins": float(np.mean(nb)),
-            "fp_cycle_basin_ratio": float(np.mean(cbr)),
-            "fp_largest_basin_fraction": float(max(cov))}
+            "fp_n_basins": fp_nb,
+            "fp_cycle_basin_ratio": fp_cbr,
+            "fp_largest_basin_fraction": fp_cov}
 
 
 # %% Main
@@ -162,10 +182,22 @@ def main():
                     help="evaluate only the first N draws per ensemble")
     ap.add_argument("--workers", type=int, default=10)
     ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    ap.add_argument("--envs", nargs="+", default=None,
+                    help="world ids to standardise (default: the six-world "
+                         "palette); e.g. the ten fr- stack members")
+    ap.add_argument("--out-label", default=None,
+                    help="suffix for the results directory; REQUIRED with "
+                         "--envs so a custom run can never touch the frozen "
+                         "palette artefacts")
     a = ap.parse_args()
+    envs = list(a.envs) if a.envs else list(ENVS)
+    if a.envs and not a.out_label:
+        ap.error("--envs requires --out-label (protects the frozen palette "
+                 "results directory)")
     n = a.sample or N_FULL
     tag = f"sample{n}" if a.sample else f"full{n}"
-    out_dir = NB_DIR / "results" / f"seed{a.seed}"
+    suffix = f"-{a.out_label}" if a.out_label else ""
+    out_dir = NB_DIR / "results" / f"seed{a.seed}{suffix}"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     stacks = draw_ensembles(N_FULL, a.seed)
@@ -176,10 +208,10 @@ def main():
     cart = np.tile(np.arange(4), (NS, 1))
 
     tasks = [("cartesian", -1, e, cart.astype(np.int64).tobytes())
-             for e in ENVS]
+             for e in envs]
     for name, arr in stacks.items():
         for i in range(n):
-            for e in ENVS:
+            for e in envs:
                 tasks.append((name, i, e, arr[i].astype(np.int64).tobytes()))
     print(f"{len(tasks)} (twist, world) evaluations, {a.workers} workers",
           flush=True)
@@ -197,7 +229,7 @@ def main():
 
     # constants + Cartesian z preview
     con = {}
-    for e in ENVS:
+    for e in envs:
         d = df[(df.env_id == e) & (df.ensemble == "shuffle")].mean_free
         mu = float(d.median())
         s = float(1.4826 * (d - d.median()).abs().median())
