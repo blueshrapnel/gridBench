@@ -113,6 +113,8 @@ def eval_one(args):
     walls, walk, base, decompose, per_label_stats = _env_pack(env_id)
     sigma = np.frombuffer(sigma_bytes, dtype=np.int64).reshape(NS, 4)
     tot = 0.0
+    max_iters = 0
+    max_residual = 0.0
     for g in walk:
         cfg = EvalConfig(env_id=env_id, shape=SHAPE, goal=int(g), beta=BETA,
                          determinism=DET, manhattan=True, theta=1e-5,
@@ -121,6 +123,18 @@ def eval_one(args):
         di = GC_DI(e, _state_dist_class("uniform")(e), 1e-5,
                    max_iterations=200_000, max_info_iterations=10_000)
         _, _, F = di.get_opt_policy_Z_free_vector(1.0)
+        # 2026-08-02 review: a null constant built on a silently unconverged
+        # solve would poison every downstream z.  Fail loudly instead.
+        if not bool(getattr(di, "converged", True)):
+            raise RuntimeError(
+                f"free-energy solve did not converge: ensemble={ensemble} "
+                f"draw={draw_id} env={env_id} goal={g} "
+                f"iterations={getattr(di, 'iteration_count', -1)}"
+            )
+        max_iters = max(max_iters, int(getattr(di, "iteration_count", 0)))
+        max_residual = max(
+            max_residual, float(getattr(di, "last_blahut_residual", 0.0))
+        )
         tot += float(np.asarray(F, dtype=float)[walk].mean())
     sigma_inv = np.argsort(sigma, axis=1)
     idx = np.arange(NS)
@@ -134,6 +148,8 @@ def eval_one(args):
         cov.append(sizes.max() / len(walk) if sizes.size else 0.0)
     return {"ensemble": ensemble, "draw_id": draw_id, "env_id": env_id,
             "mean_free": tot / len(walk),
+            "max_blahut_iterations": int(max_iters),
+            "max_blahut_residual": float(max_residual),
             "fp_n_basins": float(np.mean(nb)),
             "fp_cycle_basin_ratio": float(np.mean(cbr)),
             "fp_largest_basin_fraction": float(max(cov))}
