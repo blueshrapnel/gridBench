@@ -43,6 +43,7 @@ from gridbench.functional_graph.decomposition import (
     decompose,
     deterministic_successor,
     per_label_stats,
+    validate_sigma,
 )
 
 
@@ -109,9 +110,9 @@ def fingerprint_for_sigma(env, sigma: np.ndarray) -> dict[str, float]:
         ``fp_mean_rho``, ``fp_diameter``, and
         ``fp_largest_basin_fraction`` (the coverage scalar).
     """
-    sigma = np.asarray(sigma, dtype=int)
     nS = int(env.nS)
     nA = int(env.nA)
+    sigma = validate_sigma(sigma, nA)
     if sigma.shape != (nS, nA):
         raise ValueError(
             f"sigma shape {sigma.shape} does not match env (nS={nS}, nA={nA})"

@@ -30,11 +30,15 @@ from gridcore.envs import (
     compute_corridor_1d_ring_walls,
     compute_corridor_four_rooms_walls,
     compute_four_room_walls,
+    compute_fourrooms_stack_walls,
     compute_pillar_walls,
     compute_pinwheel_walls,
     compute_plus_cross_walls,
     compute_x_wall_walls,
 )
+
+# env_ids that legitimately have no internal walls and no builder entry.
+_NO_WALL_ENVS = frozenset({"open_grid", "wrap_grid"})
 
 
 # env_id → callable(width, height) -> list[int].  Mirrors the table in
@@ -81,9 +85,10 @@ def build_goal_free_probe_env(
     ``walls_flat`` populated and wants the goal-free env to mirror it
     exactly), or the ``env_id`` lookup in ``_WALL_BUILDERS`` (used by
     the standalone fingerprint cache builder, which has no pre-existing
-    env to copy walls from).  If the wall builder rejects the shape
-    (e.g., a unit test using a 1x3 grid for ``corr_1d_ring``), walls
-    fall back to empty — production shapes never trip this path.
+    env to copy walls from).  Unknown env ids and wall builders that
+    reject the shape raise ``ValueError``: a silent fallback would
+    construct a wall-free open grid and poison every downstream
+    statistic (2026-08-04 review, finding 1).
 
     Args:
         env_id: Environment identifier, e.g. ``"four_rooms"``.
@@ -106,15 +111,27 @@ def build_goal_free_probe_env(
     }
     if walls is not None:
         options["walls"] = [int(s) for s in walls]
+    elif str(env_id).lower().startswith("fr-"):
+        # Four-rooms stack family: delegate to the gridcore parser so the
+        # probe env's walls are identical to the evaluator's worlds.
+        options["walls"] = compute_fourrooms_stack_walls(
+            str(env_id), int(shape[1]), int(shape[0])
+        )
     else:
         builder = _WALL_BUILDERS.get(env_id)
         if builder is not None:
             try:
                 options["walls"] = builder(int(shape[1]), int(shape[0]))
-            except Exception:
-                # Wall builders enforce geometry constraints that don't
-                # apply to tiny test shapes; fall back to no walls.
-                pass
+            except Exception as exc:
+                raise ValueError(
+                    f"wall builder for env_id {env_id!r} rejected shape "
+                    f"{tuple(shape)}: {exc}"
+                ) from exc
+        elif env_id not in _NO_WALL_ENVS:
+            raise ValueError(
+                f"unknown env_id {env_id!r} for the goal-free probe env; "
+                "refusing the silent wall-free open-grid fallback"
+            )
     if env_id in _WRAP_ENVS:
         options["wrap"] = True
     if env_id in _HELICAL_ENVS:

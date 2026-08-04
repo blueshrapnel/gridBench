@@ -4,7 +4,9 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from gridbench.functional_graph.decomposition import decompose, deterministic_successor
+from gridbench.functional_graph.decomposition import (
+    decompose, deterministic_successor, validate_sigma,
+)
 
 
 @dataclass(frozen=True)
@@ -35,8 +37,8 @@ def label_graphs(env, sigma: np.ndarray) -> list[LabelGraph]:
     inverse maps a repeated label back to the physical action executed at that
     state.
     """
-    sigma = np.asarray(sigma, dtype=int)
     n_states, n_actions = int(env.nS), int(env.nA)
+    sigma = validate_sigma(sigma, n_actions)
     if sigma.shape != (n_states, n_actions):
         raise ValueError(
             f"expected sigma shape {(n_states, n_actions)}, got {sigma.shape}"

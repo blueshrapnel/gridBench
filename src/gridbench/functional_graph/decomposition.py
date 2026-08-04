@@ -64,13 +64,17 @@ def deterministic_successor(env, action: int) -> np.ndarray:
     rather than a functional graph, with different vocabulary and a
     different visualisation surface.  We do not anticipate needing one.
 
-    For ``determinism > 0.25`` argmax always picks the intended
-    successor (the intended action holds prob = ``det`` and the others
-    split ``1 - det``; the intended successor dominates as long as
-    ``det > (1 - det) / 3``).  So the fingerprint is *invariant* in
-    ``determinism`` over the working range — the determinism axis
-    matters for ``mean_free`` and ``chi_twist`` (continuous functionals
-    of T), not for ``fp_*``.
+    The argmax is only guaranteed to pick the intended successor when
+    ``det`` exceeds the largest *coincident* noise mass.  At boundaries
+    and corners several noise actions can resolve to the same state
+    (bump-in-place), so their probabilities add: up to ``1 - det`` can
+    land on one successor, and the intended move is guaranteed to
+    dominate only for ``det > 0.5`` (mismatches were observed at
+    ``det = 0.26``, even on ``open_grid``).  At the paper's ``0.97``
+    the argmax is unambiguous everywhere, so the fingerprint is
+    invariant in ``determinism`` over the working range — the
+    determinism axis matters for ``mean_free`` and ``chi_twist``
+    (continuous functionals of T), not for ``fp_*``.
 
     Args:
         env: GridRoom (or compatible) exposing ``T``, ``nS``, ``nA``.
@@ -84,6 +88,30 @@ def deterministic_successor(env, action: int) -> np.ndarray:
     T = np.asarray(env.T)
     nS, nA = int(env.nS), int(env.nA)
     return T.reshape(nS, nA, nS)[:, action, :].argmax(axis=1).astype(int)
+
+
+def validate_sigma(sigma, n_actions: int = 4) -> np.ndarray:
+    """Require every row of ``sigma`` to be a permutation of the labels.
+
+    A malformed twist (e.g. an all-zero array) would otherwise flow
+    through the functional-graph machinery and return plausible-looking
+    fingerprints (2026-08-04 review, finding 2).  Returns the validated
+    int array.
+    """
+    sig = np.asarray(sigma, dtype=int)
+    if sig.ndim != 2 or sig.shape[1] != int(n_actions):
+        raise ValueError(
+            f"sigma must be (n_states, {n_actions}), got {sig.shape}"
+        )
+    expected = np.arange(int(n_actions))
+    ok = np.all(np.sort(sig, axis=1) == expected[None, :], axis=1)
+    if not bool(np.all(ok)):
+        bad = int(np.flatnonzero(~ok)[0])
+        raise ValueError(
+            f"sigma row {bad} is not a permutation of 0..{n_actions - 1}: "
+            f"{sig[bad].tolist()}"
+        )
+    return sig
 
 
 # ---------------------------------------------------------------------------

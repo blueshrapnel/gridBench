@@ -79,7 +79,12 @@ def reach_sample(env, label: int, *, cutoff: Optional[int] = None) -> ReachSampl
         followed, the applied cutoff, and the underlying FunctionalGraph.
     """
     succ = deterministic_successor(env, action=int(label))
-    fg = decompose(succ)
+    # Exclude wall states, mirroring label_graphs: without this a walled
+    # env's reach statistics would include wall rows as ordinary states
+    # (2026-08-04 review, finding 4).
+    raw_walls = getattr(env, "walls_flat", None)
+    walls = None if raw_walls is None else np.asarray(raw_walls).ravel().tolist()
+    fg = decompose(succ, walls=walls)
     rho = np.asarray(fg.rho, dtype=int)
     if cutoff is not None:
         rho = np.minimum(rho, int(cutoff))
