@@ -21,7 +21,9 @@
 # {decision_information, free_energy, NaN} (the licensed beta=1 pooling);
 # no fepm rows exist in these caches.
 #
-# Output: figs/fingerprint_journey_two_panel.png
+# Paper outputs: F-fingerprint-open-interiors.png (Figure 9),
+# F-fingerprint-walled-interiors.png (Figure 10), and
+# F-alignment-roundup.png (Figure 16).
 
 # %%
 import sys
@@ -187,8 +189,12 @@ def null_footprint(ax, xs, ys, label=None):
 PRIOR_CSV = ("/media/merlin/phd-marlyn/gridBench/notebooks/twist-generation/"
              "_cache/initialiser-fingerprints-v2-7x7-n2016-seed20260716.csv.gz")
 _PRIORS = pd.read_csv(PRIOR_CSV)
-PRIOR_STYLE = {"row_shuffle": ("#4477aa", "gen-0 prior: row-shuffle"),
-               "perm_balanced": ("#228833", "gen-0 prior: permutation-balanced")}
+# Keep prior contours outside viridis, which colours the evaluated twists.
+# Line style is a second cue so the two priors remain distinct in greyscale.
+PRIOR_STYLE = {
+    "row_shuffle": ("#E69F00", "--", "gen-0 prior: row-shuffle"),
+    "perm_balanced": ("#7A3E00", "-", "gen-0 prior: permutation-balanced"),
+}
 
 
 def prior_footprints(ax, env_id, xcol, ycol, bits=False):
@@ -196,7 +202,7 @@ def prior_footprints(ax, env_id, xcol, ycol, bits=False):
     uniform null: fresh-uniform and row-shuffle are the same law over
     fingerprint rows (twist-generation RESULT 2026-07-16)."""
     thresholds = {}
-    for gen, (col, lab) in PRIOR_STYLE.items():
+    for gen, (col, linestyle, lab) in PRIOR_STYLE.items():
         d = _PRIORS[(_PRIORS.env_id == env_id) & (_PRIORS.generator == gen)]
         yv = -np.log2(np.clip(d[ycol], 1e-6, None)) if bits else d[ycol]
         xy = np.vstack([d[xcol], yv])
@@ -210,8 +216,9 @@ def prior_footprints(ax, env_id, xcol, ycol, bits=False):
         XG, YG = np.meshgrid(xg, yg)
         Z = kde(np.vstack([XG.ravel(), YG.ravel()])).reshape(XG.shape)
         ax.contour(XG, YG, Z, levels=[t99, t95], colors=col,
-                   linewidths=[0.9, 1.8])
-        ax.plot([], [], color=col, lw=1.8, label=f"{lab} (95/99%)")
+                   linestyles=[linestyle, linestyle], linewidths=[0.9, 1.8])
+        ax.plot([], [], color=col, ls=linestyle, lw=1.8,
+                label=f"{lab} (95/99%)")
         thresholds[gen] = (kde, t99)
     return thresholds
 
@@ -455,95 +462,131 @@ def fourrooms_palette_cohorts(n_null=300):
 
 
 PALETTE_ORDER = PANELS_OPEN + PANELS_WALLED
-fig, (axA, axB, axC) = plt.subplots(1, 3, figsize=(19.6, 5.4), dpi=150,
-                                    gridspec_kw={"width_ratios": [1.2, 1, 1]})
 
-# (a) chi strip
-rng = np.random.default_rng(7)
-for i, env_id in enumerate(PALETTE_ORDER):
-    _chis = runbest_chis(env_id)
-    for init in ("perm_balanced", "shuffle"):
-        v = [c for c, ini in _chis if ini == init]
-        if v:
-            print(f"chi {env_id} {init}: n={len(v)} med={np.median(v):.2f} "
-                  f"[{min(v):.2f}-{max(v):.2f}]", flush=True)
-    for chi, init in _chis:
-        m = "*" if init == "perm_balanced" else "s"
-        s = 150 if init == "perm_balanced" else 55
-        axA.scatter(i + rng.uniform(-0.16, 0.16), chi, marker=m, s=s,
-                    facecolors="none", edgecolors="crimson", linewidths=1.3)
-axA.axhspan(0.57, 0.73, color="grey", alpha=0.18,
-            label="uniform-random pool (min-max)")
-axA.axhline(0.68, color="grey", lw=1.0, ls="--", label="random median")
-axA.axhline(0.0, color="black", lw=1.0, label="Cartesian (any rotation)")
-axA.scatter([], [], marker="*", s=150, facecolors="none", edgecolors="crimson",
-            label="run-best, permutation-balanced")
-axA.scatter([], [], marker="s", s=55, facecolors="none", edgecolors="crimson",
-            label="run-best, row-shuffle")
-axA.set_xticks(range(len(PALETTE_ORDER)))
-axA.set_xticklabels(PALETTE_ORDER,
-                    rotation=20, ha="right", fontsize=9)
-axA.axvline(2.5, color="lightgrey", lw=0.8)
-axA.set_ylabel(r"run-best $\chi_{\mathrm{twist}}$")
-axA.set_ylim(-0.04, 0.8)
-axA.set_title("Compass character of the run-bests (palette order)", fontsize=11)
-axA.legend(fontsize=7, loc="lower right", framealpha=0.9)
 
-# (b) four_rooms ratio plane, families split
-env_id = "four_rooms"
-df = load_cohort(env_id)
-sc = axB.scatter(df.fp_n_basins, df.fp_cycle_basin_ratio, c=df.mean_free,
-                 s=4, alpha=0.25, cmap="viridis", rasterized=True,
-                 label=rf"all evaluated $\sigma$ (n={len(df):,})")
-prior_footprints(axB, env_id, "fp_n_basins", "fp_cycle_basin_ratio")
-rb = df[df.is_run_best & (df.fitness_objective == "free_energy")]
-rb = rb.drop_duplicates("run_name")[["run_name", "init_method",
-                                     "fp_n_basins", "fp_cycle_basin_ratio"]]
-supp = supplement_stars(env_id, set(rb.run_name))
-supp["init_method"] = ["shuffle" if "shuffle" in n else "perm_balanced"
-                       for n in supp.run_name]
-allrb = pd.concat([rb, supp], ignore_index=True)
-for init, m, s, lab in [("perm_balanced", "*", 210, "permutation-balanced run-bests"),
-                        ("shuffle", "s", 70, "row-shuffle run-bests")]:
-    g = allrb[allrb.init_method == init]
-    axB.scatter(g.fp_n_basins, g.fp_cycle_basin_ratio, marker=m, s=s,
-                facecolors="none", edgecolors="crimson" if m == "*" else "black",
-                linewidths=1.5, label=f"{lab} (n={len(g)})", zorder=5)
-    print(f"four_rooms {init}: n={len(g)} cbr med={g.fp_cycle_basin_ratio.median():.2f} "
-          f"nb med={g.fp_n_basins.median():.2f}", flush=True)
-cx, cy = cartesian_anchor(env_id)
-axB.scatter([cx], [cy], marker="o", s=70, facecolors="none",
-            edgecolors="black", linewidths=1.8, label="Cartesian identity", zorder=6)
-axB.set_ylim(0, 1.05)
-axB.set_xlabel("mean basins per label  (fp_n_basins)")
-axB.set_ylabel("mean cycle/basin ratio  (fp_cycle_basin_ratio)")
-axB.set_title("four_rooms 7x7: the ratio plane cannot separate them", fontsize=11)
-leg = axB.legend(fontsize=7, loc="lower right", framealpha=0.9)
-for h in leg.legend_handles:
-    try:
-        h.set_alpha(1.0)
-    except AttributeError:
-        pass
-_uniform_colorbar(fig, sc, axB)
+def draw_chi_panel(ax):
+    """Draw panel A shared by the paper and three-panel proposal."""
+    rng = np.random.default_rng(7)
+    for i, env_id in enumerate(PALETTE_ORDER):
+        chis = runbest_chis(env_id)
+        for init in ("perm_balanced", "shuffle"):
+            values = [chi for chi, candidate_init in chis
+                      if candidate_init == init]
+            if values:
+                print(f"chi {env_id} {init}: n={len(values)} "
+                      f"med={np.median(values):.2f} "
+                      f"[{min(values):.2f}-{max(values):.2f}]", flush=True)
+        for chi, init in chis:
+            marker = "*" if init == "perm_balanced" else "s"
+            size = 150 if init == "perm_balanced" else 55
+            ax.scatter(i + rng.uniform(-0.16, 0.16), chi,
+                       marker=marker, s=size, facecolors="none",
+                       edgecolors="crimson", linewidths=1.3)
+    ax.axhspan(0.57, 0.73, color="grey", alpha=0.18,
+               label="uniform-random pool (min-max)")
+    ax.axhline(0.68, color="grey", lw=1.0, ls="--", label="random median")
+    ax.axhline(0.0, color="black", lw=1.0,
+               label="Cartesian (any rotation)")
+    ax.scatter([], [], marker="*", s=150, facecolors="none",
+               edgecolors="crimson", label="run-best, permutation-balanced")
+    ax.scatter([], [], marker="s", s=55, facecolors="none",
+               edgecolors="crimson", label="run-best, row-shuffle")
+    ax.set_xticks(range(len(PALETTE_ORDER)))
+    ax.set_xticklabels(PALETTE_ORDER, rotation=20, ha="right", fontsize=9)
+    ax.axvline(2.5, color="lightgrey", lw=0.8)
+    ax.set_ylabel(r"run-best $\chi_{\mathrm{twist}}$")
+    ax.set_ylim(-0.04, 0.8)
+    ax.set_title("Compass character of the run-bests (palette order)",
+                 fontsize=11)
+    ax.legend(fontsize=7, loc="lower right", framealpha=0.9)
 
-# (c) the palette plane: the relational statistics separate the families
-pal = fourrooms_palette_cohorts()
-nul = pal[pal.group == "null"]
-axC.scatter(nul.union, nul.jaccard, s=14, alpha=0.35, color="lightgrey",
-            label=f"row-shuffle null (n={len(nul)})")
-for grp, m, s, col, lab in [
-        ("perm_balanced", "*", 170, "crimson", "permutation-balanced run-bests"),
-        ("shuffle", "s", 60, "black", "row-shuffle run-bests")]:
-    g = pal[pal.group == grp]
-    axC.scatter(g.union, g.jaccard, marker=m, s=s, facecolors="none",
-                edgecolors=col, linewidths=1.4, label=f"{lab} (n={len(g)})")
-    print(f"palette {grp}: n={len(g)} union med={g.union.median():.3f} "
-          f"jaccard med={g.jaccard.median():.3f}", flush=True)
-axC.set_xlabel("union coverage of label cycles")
-axC.set_ylabel("mean pairwise Jaccard of cycle sets")
-axC.set_title("four_rooms 7x7: the palette plane separates them", fontsize=11)
-axC.legend(fontsize=7, framealpha=0.9)
 
+def draw_fourrooms_ratio_panel(fig, ax, title):
+    """Draw the family comparison used in paper Figure 16."""
+    env_id = "four_rooms"
+    df = load_cohort(env_id)
+    sc = ax.scatter(
+        df.fp_n_basins, df.fp_cycle_basin_ratio, c=df.mean_free,
+        s=4, alpha=0.25, cmap="viridis", rasterized=True,
+        label=rf"all evaluated $\sigma$ (n={len(df):,})",
+    )
+    prior_footprints(ax, env_id, "fp_n_basins", "fp_cycle_basin_ratio")
+    rb = df[df.is_run_best & (df.fitness_objective == "free_energy")]
+    rb = rb.drop_duplicates("run_name")[[
+        "run_name", "init_method", "fp_n_basins", "fp_cycle_basin_ratio",
+    ]]
+    supp = supplement_stars(env_id, set(rb.run_name))
+    supp["init_method"] = [
+        "shuffle" if "shuffle" in name else "perm_balanced"
+        for name in supp.run_name
+    ]
+    allrb = pd.concat([rb, supp], ignore_index=True)
+    for init, marker, size, label in [
+        ("perm_balanced", "*", 210, "permutation-balanced run-bests"),
+        ("shuffle", "s", 70, "row-shuffle run-bests"),
+    ]:
+        group = allrb[allrb.init_method == init]
+        ax.scatter(
+            group.fp_n_basins, group.fp_cycle_basin_ratio,
+            marker=marker, s=size, facecolors="none",
+            edgecolors="crimson" if marker == "*" else "black",
+            linewidths=1.5, label=f"{label} (n={len(group)})", zorder=5,
+        )
+        print(f"four_rooms {init}: n={len(group)} cbr "
+              f"med={group.fp_cycle_basin_ratio.median():.2f} nb "
+              f"med={group.fp_n_basins.median():.2f}", flush=True)
+    cx, cy = cartesian_anchor(env_id)
+    ax.scatter([cx], [cy], marker="o", s=70, facecolors="none",
+               edgecolors="black", linewidths=1.8,
+               label="Cartesian identity", zorder=6)
+    ax.set_ylim(0, 1.05)
+    ax.set_xlabel("mean basins per label  (fp_n_basins)")
+    ax.set_ylabel("mean cycle/basin ratio  (fp_cycle_basin_ratio)")
+    ax.set_title(title, fontsize=11)
+    leg = ax.legend(fontsize=7, loc="lower right", framealpha=0.9)
+    for handle in leg.legend_handles:
+        try:
+            handle.set_alpha(1.0)
+        except AttributeError:
+            pass
+    _uniform_colorbar(fig, sc, ax)
+
+
+def draw_palette_panel(ax):
+    """Draw the third panel retained as an unpublished proposal."""
+    pal = fourrooms_palette_cohorts()
+    null = pal[pal.group == "null"]
+    ax.scatter(null.union, null.jaccard, s=14, alpha=0.35,
+               color="lightgrey", label=f"row-shuffle null (n={len(null)})")
+    for group_name, marker, size, colour, label in [
+        ("perm_balanced", "*", 170, "crimson",
+         "permutation-balanced run-bests"),
+        ("shuffle", "s", 60, "black", "row-shuffle run-bests"),
+    ]:
+        group = pal[pal.group == group_name]
+        ax.scatter(group.union, group.jaccard, marker=marker, s=size,
+                   facecolors="none", edgecolors=colour, linewidths=1.4,
+                   label=f"{label} (n={len(group)})")
+        print(f"palette {group_name}: n={len(group)} union "
+              f"med={group.union.median():.3f} jaccard "
+              f"med={group.jaccard.median():.3f}", flush=True)
+    ax.set_xlabel("union coverage of label cycles")
+    ax.set_ylabel("mean pairwise Jaccard of cycle sets")
+    ax.set_title("four_rooms 7x7: the palette plane separates them",
+                 fontsize=11)
+    ax.legend(fontsize=7, framealpha=0.9)
+
+
+# The accepted two-panel paper figure.  Keep the later three-panel analysis
+# below as a separate proposal so a notebook rerun cannot overwrite Figure 16.
+fig, (axA, axB) = plt.subplots(
+    1, 2, figsize=(15.2, 5.4), dpi=150,
+    gridspec_kw={"width_ratios": [1.15, 1]},
+)
+draw_chi_panel(axA)
+draw_fourrooms_ratio_panel(
+    fig, axB, "four_rooms 7x7: the two families on the ratio plane",
+)
 fig.tight_layout()
 out = FIG_DIR / "alignment_roundup.png"
 fig.savefig(out, bbox_inches="tight")
@@ -551,3 +594,20 @@ paper_out = PAPER_FIG_DIR / "F-alignment-roundup.png"
 fig.savefig(paper_out, bbox_inches="tight")
 print(f"saved {out}")
 print(f"saved {paper_out}")
+plt.close(fig)
+
+# Unpublished three-panel extension from the 2026-07-17 proposal.
+fig, (axA, axB, axC) = plt.subplots(
+    1, 3, figsize=(19.6, 5.4), dpi=150,
+    gridspec_kw={"width_ratios": [1.2, 1, 1]},
+)
+draw_chi_panel(axA)
+draw_fourrooms_ratio_panel(
+    fig, axB, "four_rooms 7x7: the ratio plane cannot separate them",
+)
+draw_palette_panel(axC)
+fig.tight_layout()
+out = FIG_DIR / "alignment_roundup_three_panel_proposal.png"
+fig.savefig(out, bbox_inches="tight")
+print(f"saved {out}")
+plt.close(fig)
