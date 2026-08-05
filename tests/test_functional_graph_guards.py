@@ -20,12 +20,12 @@ def _identity_sigma(n_states, n_actions=4):
 
 
 def test_unknown_env_id_raises():
-    with pytest.raises(ValueError, match="unknown env_id"):
+    with pytest.raises(ValueError, match="env_id"):
         build_goal_free_probe_env("four_roomz", (7, 7), 0.97)
 
 
 def test_wall_builder_shape_rejection_raises():
-    with pytest.raises(ValueError, match="rejected shape"):
+    with pytest.raises(ValueError, match="shape|template"):
         build_goal_free_probe_env("corr_four_rooms", (7, 7), 0.97)
 
 
@@ -50,7 +50,7 @@ def test_fr_template_member_matches_four_rooms():
 def test_validate_sigma_rejects_non_permutations():
     with pytest.raises(ValueError, match="not a permutation"):
         validate_sigma(np.zeros((49, 4), dtype=int))
-    with pytest.raises(ValueError, match="must be"):
+    with pytest.raises(ValueError, match="must"):
         validate_sigma(np.zeros((49, 3), dtype=int))
     validate_sigma(_identity_sigma(49))  # sane
 

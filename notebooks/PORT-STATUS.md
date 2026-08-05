@@ -17,7 +17,8 @@ Source of most pending work: `gridFour/notebooks/attractor-fingerprint-probe/`.
    parity is verifiable:
    - `utility.twists` → `gridcore.twists`
    - `utility.information_theory.get_expected_vector` → `gridcore.information`
-   - `analysis.functional_graph.*` → `gridbench.functional_graph.*`
+   - core decomposition/fingerprints → `gridcore.functional_graph`
+   - modularity/null/cache/reach analysis → `gridbench.functional_graph.*`
    - `utility.display` / `display_twist*` → `gridvis.*`
    - `utility.constants.metric_clims` → `gridvis.constants.metric_clims`
    - `utility.metrics` → `gridbench.metrics`; `directory_tools` → `gridbench.store`
@@ -77,6 +78,11 @@ Do **not** separately port:
 
 The promoted result treats Q as cross-label basin-partition agreement, not as
 evidence of spatially compact communities.
+
+The reusable decomposition, repeated-label graph, and nine-field fingerprint
+were promoted to `gridcore.functional_graph` on 2026-08-05.  The retained
+GridFour invariants were split by ownership: generic finite-map and fingerprint
+tests in GridCore; modularity, null, cache, and reach tests in GridBench.
 
 ## Other-paper (K-annealing / goal-subsampling) — port only if that paper needs it
 

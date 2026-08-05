@@ -1,5 +1,6 @@
-"""Functional-graph analysis (F&O 1990 machinery) for per-σ fingerprints.
+"""Analysis around GridCore's functional-graph and fingerprint primitives.
 
-Ported from gridFour src/analysis/functional_graph (2026-07-11); the
-gridFour copy is frozen.
+NumPy-only decomposition and fingerprints live in ``gridcore``.  This package
+owns NetworkX modularity, empirical nulls, caches, and notebook-facing
+compatibility imports.  The original GridFour implementation remains frozen.
 """

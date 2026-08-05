@@ -6,6 +6,7 @@ import pytest
 
 from gridbench.functional_graph.decomposition import decompose, deterministic_successor
 from gridbench.functional_graph.modularity import (
+    _adjusted_rand_index,
     basin_comembership_graph,
     modularity_diagnostics_for_graph,
     modularity_diagnostics_for_sigma,
@@ -94,6 +95,11 @@ def test_edgeless_graph_has_defined_zero_diagnostics():
     assert result.mean_q == 0.0
     assert result.median_pairwise_ari == 1.0
     assert result.n_communities == (3, 3, 3)
+
+
+def test_adjusted_rand_index_distinguishes_same_and_crossed_partitions():
+    assert _adjusted_rand_index([0, 0, 1, 1], [4, 4, 9, 9]) == pytest.approx(1.0)
+    assert _adjusted_rand_index([0, 0, 1, 1], [0, 1, 0, 1]) < 0.0
 
 
 @pytest.mark.parametrize(

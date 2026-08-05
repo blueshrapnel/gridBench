@@ -34,8 +34,8 @@ again for new work.  Porting means:
 3. Jupyter-runnable throughout (no __file__), jupytext .py format;
 4. the gridFour original stays where it is, untouched.
 
-Known porting dependency: the functional-graph machinery
-(decompose/fingerprints) lives in gridFour/src/analysis and is not yet
-in gridCore; the attractor notebooks (35-50) need it moved (or a
-gridcore.functional_graph module) before they can be ported.  The same
-module is a prerequisite for gridTwist#23's full gridFour decoupling.
+The reusable functional-graph machinery now lives in
+`gridcore.functional_graph`.  GridBench retains compatibility imports plus
+the analysis-only pieces: Louvain modularity, null-model experiments, cache
+and archive handling, and single-label reach visualisation.  GridFour remains
+the frozen numerical reference rather than a runtime dependency.
