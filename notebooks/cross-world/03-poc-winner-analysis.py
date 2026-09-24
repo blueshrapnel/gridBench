@@ -23,6 +23,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from gridbench.functional_graph.probe_env import build_goal_free_probe_env
+from gridbench.papers.cross_world_floors import select_floor_candidate
 
 
 def _nb_dir(default: str) -> Path:
@@ -46,43 +47,52 @@ CON = json.loads((NB_DIR / "results/seed20260718/constants_full2016.json")
 ENVS = ["wrap_grid", "open_grid", "helical", "pinwheel", "four_rooms", "pillar_3"]
 ORDS = np.array(list(permutations(range(4))))
 
-# provisional floors: best single-world FE run-best per env (store + outputs)
-import glob as _glob
-FLOORS = {}
-OUTS = ["core-silence-hunt-10-07", "core-silence-hunt2-shuffle-10-07",
-        "core-silence-scale-env-warm-11-07", "core-torus-shuffle-15-07",
-        "g400-pop-96-perm-bal-13-05-b1-free-existing-envs"]
-for e in ENVS:
-    best = np.inf
-    for p in _glob.glob(f"/media/merlin/grid-twist/data-schema-11/multi/*/"
-                        f"fitness_objective=free_energy/env_id={e}/shape=7x7/"
-                        f"*/*/run_name=*/*-multi-all.summary.json"):
-        f = json.load(open(p)).get("best_expected_free")
-        if f:
-            best = min(best, f)
-    tag = "-" + e.replace("_", "-") + "-7x7-"
-    for b in OUTS:
-        for p in _glob.glob(f"/media/merlin/grid-twist/gridtwist-outputs/{b}/"
-                            f"*{tag}*/*-multi-all.summary.json"):
-            if "-b1-free-" not in p:
-                continue
-            f = json.load(open(p)).get("best_expected_free")
-            if f:
-                best = min(best, f)
-    FLOORS[e] = best
-(DATA / "provisional_floors.json").write_text(json.dumps(
-    {e: {"floor_F": FLOORS[e], "mu": CON[e]["mu"], "s": CON[e]["s"],
-         "source": "best single-world FE run-best, store+outputs 2026-07-18"}
-     for e in ENVS}, indent=1))
-print("floors:", {e: round(FLOORS[e], 3) for e in ENVS})
-
-# %% Per-world walkable subsets
+# Per-world walkable goal sets used to verify every floor candidate exactly.
 subsets = {}
 for e in ENVS:
     env = build_goal_free_probe_env(e, (7, 7), 0.97)
     wf = getattr(env, "walls_flat", None)
     walls = set(int(w) for w in np.ravel(wf)) if wf is not None else set()
     subsets[e] = [s for s in range(49) if s not in walls]
+
+# provisional floors: best single-world FE run-best per env (store + outputs)
+import glob as _glob
+FLOORS = {}
+FLOOR_COUNTS = {}
+FLOOR_SOURCES = {}
+OUTS = ["core-silence-hunt-10-07", "core-silence-hunt2-shuffle-10-07",
+        "core-silence-scale-env-warm-11-07", "core-torus-shuffle-15-07",
+        "g400-pop-96-perm-bal-13-05-b1-free-existing-envs"]
+for e in ENVS:
+    paths = set(_glob.glob(
+        f"/media/merlin/grid-twist/data-schema-11/multi/*/"
+        f"fitness_objective=free_energy/env_id={e}/shape=7x7/"
+        f"*/*/run_name=*/*-multi-all.summary.json"
+    ))
+    tag = "-" + e.replace("_", "-") + "-7x7-"
+    for b in OUTS:
+        for p in _glob.glob(f"/media/merlin/grid-twist/gridtwist-outputs/{b}/"
+                            f"*{tag}*/*-multi-all.summary.json"):
+            if "-b1-free-" not in p:
+                continue
+            paths.add(p)
+    summaries = [
+        (p, json.loads(Path(p).read_text())) for p in sorted(paths)
+    ]
+    best, count = select_floor_candidate(
+        summaries, env_id=e, expected_goals=subsets[e]
+    )
+    FLOORS[e] = best.score
+    FLOOR_COUNTS[e] = count
+    FLOOR_SOURCES[e] = best.source
+(DATA / "provisional_floors.json").write_text(json.dumps(
+    {e: {"floor_F": FLOORS[e], "mu": CON[e]["mu"], "s": CON[e]["s"],
+         "source": "best completed beta=1 full-goal single-world FE run-best",
+         "source_summary": FLOOR_SOURCES[e],
+         "n_qualifying": FLOOR_COUNTS[e]}
+     for e in ENVS}, indent=1))
+print("floors:", {e: round(FLOORS[e], 3) for e in ENVS})
+print("strict floor cohort sizes:", FLOOR_COUNTS)
 
 
 def alignment(sigma, cells):

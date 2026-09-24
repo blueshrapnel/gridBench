@@ -1,0 +1,4882 @@
+{
+ "n": 84,
+ "shape": [
+  7,
+  7
+ ],
+ "family": "jogged cross, template doorway signature, all rotations",
+ "members": [
+  {
+   "label": "fr-R2Cu2Cd2-rot0",
+   "params": [
+    2,
+    2,
+    2
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd2-rot90",
+   "params": [
+    2,
+    2,
+    2
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd2-rot180",
+   "params": [
+    2,
+    2,
+    2
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd2-rot270",
+   "params": [
+    2,
+    2,
+    2
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd3-rot0",
+   "params": [
+    2,
+    2,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd3-rot90",
+   "params": [
+    2,
+    2,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd3-rot180",
+   "params": [
+    2,
+    2,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu2Cd3-rot270",
+   "params": [
+    2,
+    2,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd2-rot0",
+   "params": [
+    2,
+    3,
+    2
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd2-rot90",
+   "params": [
+    2,
+    3,
+    2
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd2-rot180",
+   "params": [
+    2,
+    3,
+    2
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd2-rot270",
+   "params": [
+    2,
+    3,
+    2
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd3-rot0",
+   "params": [
+    2,
+    3,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd3-rot90",
+   "params": [
+    2,
+    3,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd3-rot180",
+   "params": [
+    2,
+    3,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd3-rot270",
+   "params": [
+    2,
+    3,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd4-rot0",
+   "params": [
+    2,
+    3,
+    4
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd4-rot90",
+   "params": [
+    2,
+    3,
+    4
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd4-rot180",
+   "params": [
+    2,
+    3,
+    4
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu3Cd4-rot270",
+   "params": [
+    2,
+    3,
+    4
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd3-rot0",
+   "params": [
+    2,
+    4,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd3-rot90",
+   "params": [
+    2,
+    4,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd3-rot180",
+   "params": [
+    2,
+    4,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd3-rot270",
+   "params": [
+    2,
+    4,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd4-rot0",
+   "params": [
+    2,
+    4,
+    4
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd4-rot90",
+   "params": [
+    2,
+    4,
+    4
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd4-rot180",
+   "params": [
+    2,
+    4,
+    4
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R2Cu4Cd4-rot270",
+   "params": [
+    2,
+    4,
+    4
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd2-rot0",
+   "params": [
+    3,
+    2,
+    2
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd2-rot90",
+   "params": [
+    3,
+    2,
+    2
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd2-rot180",
+   "params": [
+    3,
+    2,
+    2
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd2-rot270",
+   "params": [
+    3,
+    2,
+    2
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd3-rot0",
+   "params": [
+    3,
+    2,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd3-rot90",
+   "params": [
+    3,
+    2,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd3-rot180",
+   "params": [
+    3,
+    2,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu2Cd3-rot270",
+   "params": [
+    3,
+    2,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd2-rot0",
+   "params": [
+    3,
+    3,
+    2
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd2-rot90",
+   "params": [
+    3,
+    3,
+    2
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd2-rot180",
+   "params": [
+    3,
+    3,
+    2
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd2-rot270",
+   "params": [
+    3,
+    3,
+    2
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd3-rot0",
+   "params": [
+    3,
+    3,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    9,
+    9,
+    9,
+    9
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd3-rot90",
+   "params": [
+    3,
+    3,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    9,
+    9,
+    9,
+    9
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd3-rot180",
+   "params": [
+    3,
+    3,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    9,
+    9,
+    9,
+    9
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd3-rot270",
+   "params": [
+    3,
+    3,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    9,
+    9,
+    9,
+    9
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd4-rot0",
+   "params": [
+    3,
+    3,
+    4
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd4-rot90",
+   "params": [
+    3,
+    3,
+    4
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd4-rot180",
+   "params": [
+    3,
+    3,
+    4
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu3Cd4-rot270",
+   "params": [
+    3,
+    3,
+    4
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd3-rot0",
+   "params": [
+    3,
+    4,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd3-rot90",
+   "params": [
+    3,
+    4,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd3-rot180",
+   "params": [
+    3,
+    4,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd3-rot270",
+   "params": [
+    3,
+    4,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    9,
+    9,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd4-rot0",
+   "params": [
+    3,
+    4,
+    4
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd4-rot90",
+   "params": [
+    3,
+    4,
+    4
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd4-rot180",
+   "params": [
+    3,
+    4,
+    4
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R3Cu4Cd4-rot270",
+   "params": [
+    3,
+    4,
+    4
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd2-rot0",
+   "params": [
+    4,
+    2,
+    2
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd2-rot90",
+   "params": [
+    4,
+    2,
+    2
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd2-rot180",
+   "params": [
+    4,
+    2,
+    2
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd2-rot270",
+   "params": [
+    4,
+    2,
+    2
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd3-rot0",
+   "params": [
+    4,
+    2,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd3-rot90",
+   "params": [
+    4,
+    2,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd3-rot180",
+   "params": [
+    4,
+    2,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu2Cd3-rot270",
+   "params": [
+    4,
+    2,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd2-rot0",
+   "params": [
+    4,
+    3,
+    2
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd2-rot90",
+   "params": [
+    4,
+    3,
+    2
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd2-rot180",
+   "params": [
+    4,
+    3,
+    2
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd2-rot270",
+   "params": [
+    4,
+    3,
+    2
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd3-rot0",
+   "params": [
+    4,
+    3,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd3-rot90",
+   "params": [
+    4,
+    3,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd3-rot180",
+   "params": [
+    4,
+    3,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd3-rot270",
+   "params": [
+    4,
+    3,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd4-rot0",
+   "params": [
+    4,
+    3,
+    4
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd4-rot90",
+   "params": [
+    4,
+    3,
+    4
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd4-rot180",
+   "params": [
+    4,
+    3,
+    4
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu3Cd4-rot270",
+   "params": [
+    4,
+    3,
+    4
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    12,
+    12
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd3-rot0",
+   "params": [
+    4,
+    4,
+    3
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": true,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     3
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd3-rot90",
+   "params": [
+    4,
+    4,
+    3
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd3-rot180",
+   "params": [
+    4,
+    4,
+    3
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd3-rot270",
+   "params": [
+    4,
+    4,
+    3
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    6,
+    6,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd4-rot0",
+   "params": [
+    4,
+    4,
+    4
+   ],
+   "rot": 0,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd4-rot90",
+   "params": [
+    4,
+    4,
+    4
+   ],
+   "rot": 90,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd4-rot180",
+   "params": [
+    4,
+    4,
+    4
+   ],
+   "rot": 180,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "label": "fr-R4Cu4Cd4-rot270",
+   "params": [
+    4,
+    4,
+    4
+   ],
+   "rot": 270,
+   "walls": 9,
+   "n_doors": 4,
+   "rooms": [
+    4,
+    8,
+    8,
+    16
+   ],
+   "connected": true,
+   "valid": true,
+   "is_template": false,
+   "wall_cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  }
+ ]
+}

@@ -3,36 +3,48 @@
   "floor_F": 6.045416968325811,
   "mu": 7.977441655685006,
   "s": 0.08243792219051346,
-  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+  "source": "best completed beta=1 full-goal single-world FE run-best",
+  "source_summary": "/media/merlin/grid-twist/gridtwist-outputs/core-torus-shuffle-15-07/g500-pop-96-shuffle-15-07-b1-free-core-ga-wrap-grid-7x7-s264-sp3011-04/g500-pop-96-shuffle-15-07-b1-free-core-ga-wrap-grid-7x7-s264-sp3011-04-multi-all.summary.json",
+  "n_qualifying": 26
  },
  "open_grid": {
   "floor_F": 7.6785593433953965,
   "mu": 10.59960885177578,
   "s": 0.1059598012078598,
-  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+  "source": "best completed beta=1 full-goal single-world FE run-best",
+  "source_summary": "/media/merlin/grid-twist/data-schema-11/multi/init_method=perm_balanced/fitness_objective=free_energy/env_id=open_grid/shape=7x7/beta=1/det=0.97/run_name=g500-pop-96-perm-bal-07-06-b1-free-ga-open-grid-7x7-k100-sp3011-15-survey/g500-pop-96-perm-bal-07-06-b1-free-ga-open-grid-7x7-k100-sp3011-15-survey-multi-all.summary.json",
+  "n_qualifying": 25
  },
  "helical": {
   "floor_F": 6.007080325695282,
   "mu": 7.9548234763767365,
   "s": 0.08466114618847023,
-  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+  "source": "best completed beta=1 full-goal single-world FE run-best",
+  "source_summary": "/media/merlin/grid-twist/gridtwist-outputs/core-torus-shuffle-15-07/g500-pop-96-shuffle-15-07-b1-free-core-ga-helical-7x7-s264-sp3011-10/g500-pop-96-shuffle-15-07-b1-free-core-ga-helical-7x7-s264-sp3011-10-multi-all.summary.json",
+  "n_qualifying": 17
  },
  "pinwheel": {
   "floor_F": 11.304721085377018,
   "mu": 16.785615292252743,
   "s": 0.2114644862503797,
-  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+  "source": "best completed beta=1 full-goal single-world FE run-best",
+  "source_summary": "/media/merlin/grid-twist/data-schema-11/multi/init_method=shuffle/fitness_objective=free_energy/env_id=pinwheel/shape=7x7/beta=1/det=0.97/run_name=g500-pop-96-shuffle-16-07-b1-free-core-ga-pinwheel-7x7-s412-sp3011-03/g500-pop-96-shuffle-16-07-b1-free-core-ga-pinwheel-7x7-s412-sp3011-03-multi-all.summary.json",
+  "n_qualifying": 18
  },
  "four_rooms": {
   "floor_F": 9.32230661835937,
   "mu": 13.224647295891906,
   "s": 0.17643056367040796,
-  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+  "source": "best completed beta=1 full-goal single-world FE run-best",
+  "source_summary": "/media/merlin/grid-twist/gridtwist-outputs/core-silence-hunt2-shuffle-10-07/g500-pop-96-shuffle-10-07-b1-free-core-ga-four-rooms-7x7-s173-sp3011-02/g500-pop-96-shuffle-10-07-b1-free-core-ga-four-rooms-7x7-s173-sp3011-02-multi-all.summary.json",
+  "n_qualifying": 41
  },
  "pillar_3": {
   "floor_F": 8.712165826424954,
   "mu": 12.753694226168244,
   "s": 0.17490835947875777,
-  "source": "best single-world FE run-best, store+outputs 2026-07-18"
+  "source": "best completed beta=1 full-goal single-world FE run-best",
+  "source_summary": "/media/merlin/grid-twist/data-schema-11/multi/init_method=shuffle/fitness_objective=free_energy/env_id=pillar_3/shape=7x7/beta=1/det=0.97/run_name=g500-pop-96-shuffle-16-07-b1-free-core-ga-pillar-3-7x7-s447-sp3011-05/g500-pop-96-shuffle-16-07-b1-free-core-ga-pillar-3-7x7-s447-sp3011-05-multi-all.summary.json",
+  "n_qualifying": 18
  }
 }
