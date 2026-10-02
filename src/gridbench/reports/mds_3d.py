@@ -45,25 +45,38 @@ def calc_average_distance_matrix(matrix):
     return (matrix + matrix.T) / 2
 
 
+def _classical_start(matrix, components):
+    """Classical (Torgerson) MDS coordinates, used as the SMACOF starting point."""
+    D = np.asarray(matrix, dtype=float)
+    n = len(D)
+    J = np.eye(n) - np.ones((n, n)) / n
+    w, v = np.linalg.eigh(-0.5 * J @ (D ** 2) @ J)
+    order = np.argsort(w)[::-1][:components]
+    return v[:, order] * np.sqrt(np.maximum(w[order], 0.0))
+
+
 def get_matrix_embedding(matrix, components=2):
     params = inspect.signature(MDS).parameters
     model_kwargs = {
         "n_components": components,
-        "n_init": 4,
+        "n_init": 1,
         "random_state": 1,
     }
     if "metric_mds" in params:
         model_kwargs["metric_mds"] = True
         model_kwargs["metric"] = "precomputed"
         if "init" in params:
-            model_kwargs["init"] = "random"
+            model_kwargs["init"] = "classical_mds"
     else:
         model_kwargs["metric"] = True
         model_kwargs["dissimilarity"] = "precomputed"
         if "normalized_stress" in params:
             model_kwargs["normalized_stress"] = "auto"
     model = MDS(**model_kwargs)
-    return model.fit_transform(matrix)
+    # start SMACOF from the classical-MDS solution: deterministic, and at low beta it
+    # reaches a lower stress than a handful of random starts
+    start = None if "init" in params else _classical_start(matrix, components)
+    return model.fit_transform(matrix, init=start)
 
 
 def main():
