@@ -70,8 +70,10 @@ from journey_marks import mark_journey, OUTLINE                                 
 from gridbench.functional_graph.probe_env import build_goal_free_probe_env             # noqa: E402
 from gridbench.functional_graph.label_graphs import label_graphs, walls_and_nonwalls   # noqa: E402
 
-OUT = Path("/media/merlin/Dropbox/workbench/topics/switching-costs/figures/twisted-worlds")
-CACHE = Path("/media/merlin/fixed-point-sweep/switching-twisted")
+REF = os.environ.get("TWISTED_REFERENCE", "pooled")      # "pooled" (the report) or "uniform" (the twists were evolved under it)
+SUFFIX = "" if REF == "pooled" else f"-{REF}"
+OUT = Path("/media/merlin/Dropbox/workbench/topics/switching-costs/figures/twisted-worlds" + SUFFIX)
+CACHE = Path("/media/merlin/fixed-point-sweep/switching-twisted" + SUFFIX)
 OUT.mkdir(parents=True, exist_ok=True); CACHE.mkdir(parents=True, exist_ok=True)
 BETAS = (1.0, 0.3)
 WORLDS = [("untwisted", None), ("random twist", "random twist"), ("evolved, lowest F", "evolved, lowest F"),
@@ -118,7 +120,7 @@ for name, key in WORLDS:
 
 
 def load_solution(name, beta):
-    f = DEFAULT_OUT / f"four_rooms-13x13-det-0.97-{TAG[name]}-pooled-b-{beta:g}.npz"
+    f = DEFAULT_OUT / f"four_rooms-13x13-det-0.97-{TAG[name]}-{REF}-b-{beta:g}.npz"
     d = np.load(f)
     # the report's certificate is 1e-8 / 1e-6; one evolved goal at beta 1 stops at 1e-7 / 1e-5,
     # which is still far below anything the triple statistics can see
@@ -206,7 +208,7 @@ def per_interim_goal(args):
 
 
 def compute(name, beta, pool):
-    f = CACHE / f"{TAG[name]}-pooled-b-{beta:g}.npz"
+    f = CACHE / f"{TAG[name]}-{REF}-b-{beta:g}.npz"
     if f.exists():
         return dict(np.load(f))
     d = load_solution(name, beta); T = worlds[name]["T"]
@@ -247,7 +249,7 @@ def summarise(name, beta, r):
     viol = saving > 1e-7
     fin = np.isfinite(C)
     finA = np.isfinite(A)
-    o = dict(world=name, chi=worlds[name]["chi"], beta=beta, triples=int(m.sum()),
+    o = dict(world=name, chi=worlds[name]["chi"], beta=beta, reference=REF, triples=int(m.sum()),
              violating=int(viol.sum()), violating_share=float(viol.mean()), worst_violation=float(saving.max()),
              bound_vacuous_share=float((~fin).mean()),
              bound_fails=int(((C < saving - 1e-7) & fin).sum()),
