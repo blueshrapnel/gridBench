@@ -14,7 +14,9 @@
 #                    it (mean over goals), and share of (start, goal) journeys that use it
 #                    (expected number of decisions with that label above 1e-3);
 #   3. label graphs  per label: coverage of its largest basin under the intended move
-#                    (the twists work's dominant/silent ordering), for context.
+#                    (the twists work's dominant/silent ordering), for context;
+#   4. the home-vectors paper's own criterion: a label is silenced (retired) when it
+#                    accounts for under 5 % of greedy decisions across the goal-policy ensemble.
 #
 # A uniform-reference sacrificial claim names a label dropped by more than 80 % of goals
 # or used on fewer than 1 % of journeys; the check is whether the pooled solve drops the
@@ -82,15 +84,17 @@ for tag, key in WORLDS.items():
             d = np.load(SWEEP / f"four_rooms-13x13-det-0.97-{tag}-{ref}-b-{beta:g}.npz")
             pol, Q = d["policies"], d["q"]
             dropped = (Q < 1e-6).sum(0)
-            used_states = np.zeros(4); used_journeys = np.zeros(4)
+            used_states = np.zeros(4); used_journeys = np.zeros(4); greedy = np.zeros(4)
             for g in range(n):
                 keep = idx != g
+                greedy += np.bincount(pol[g][keep].argmax(1), minlength=4)   # the paper's criterion: share of greedy decisions
                 used_states += (pol[g][keep] > 1e-3).mean(0)
                 N = occupancy(np.einsum("sa,saj->sj", pol[g], absorb(T, g)), g)
                 expected_label_decisions = N @ pol[g]              # [s, b]
                 used_journeys += (expected_label_decisions[keep] > 1e-3).mean(0)
-            used_states /= n; used_journeys /= n
+            used_states /= n; used_journeys /= n; greedy /= greedy.sum()
             row = dict(world=tag, chi=round(chi, 3), reference=ref, beta=beta,
+                       greedy_share=greedy.round(4).tolist(), silenced_by_paper_criterion=[int(b) for b in range(4) if greedy[b] < 0.05],
                        goals_dropping=dropped.tolist(), mean_prior=Q.mean(0).round(4).tolist(),
                        share_of_states_using=used_states.round(3).tolist(), share_of_journeys_using=used_journeys.round(3).tolist(),
                        label_coverage=np.round(cov, 3).tolist(),
@@ -98,7 +102,7 @@ for tag, key in WORLDS.items():
                        sacrificial_by_journeys=[int(b) for b in range(4) if used_journeys[b] < 0.01])
             results.append(row)
             print(f"{tag:22s} χ {chi:.2f} {ref:8s} β {beta:<4g} | goals dropping {dropped.tolist()} | mean prior {np.round(Q.mean(0),3).tolist()} "
-                  f"| states using {np.round(used_states,2).tolist()} | journeys using {np.round(used_journeys,2).tolist()} | coverage {np.round(cov,2).tolist()}", flush=True)
+                  f"| states using {np.round(used_states,2).tolist()} | journeys using {np.round(used_journeys,2).tolist()} | greedy share {np.round(100*greedy,1).tolist()} % | coverage {np.round(cov,2).tolist()}", flush=True)
 
 OUT.write_text(json.dumps(results, indent=1) + "\n")
 # the verdict
@@ -107,4 +111,5 @@ for tag in WORLDS:
     pooled = [r for r in results if r["world"] == tag and r["reference"] == "pooled"]
     cand = sorted(set(b for r in uni for b in r["sacrificial_by_prior"] + r["sacrificial_by_journeys"]))
     same = [b for b in cand if all(b in r["sacrificial_by_prior"] + r["sacrificial_by_journeys"] for r in pooled)]
-    print(f"{tag:22s}: uniform-reference sacrificial candidates {cand or 'none'}; also sacrificial under pooled: {same or 'none'}")
+    sil = {(r["reference"], r["beta"]): r["silenced_by_paper_criterion"] for r in uni + pooled}
+    print(f"{tag:22s}: sacrificial by prior drop or journey use: uniform {cand or 'none'}, also pooled {same or 'none'}; silenced by the paper's greedy-share criterion: {sil}")
