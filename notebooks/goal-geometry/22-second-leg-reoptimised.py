@@ -33,8 +33,10 @@ from gridcore.info.fixed_point import absorb, occupancy, solve_self_consistent, 
 SWEEP = Path("/media/merlin/fixed-point-sweep")
 OUT = Path("/media/merlin/Dropbox/workbench/topics/switching-costs/figure-code/second-leg-reoptimised")
 BETAS = [float(b) for b in (sys.argv[1:] or ["1", "0.3"])]
+DET = float(os.environ.get("DET", "0.97"))          # 0.97 is the twists setting; the report's own four rooms are deterministic (DET=1)
+TAG = f"four_rooms-13x13-det-{DET:g}"
 
-env = build_env_by_id(env_id="four_rooms", shape=(13, 13), goal=0, determinism=0.97, manhattan=True)
+env = build_env_by_id(env_id="four_rooms", shape=(13, 13), goal=0, determinism=DET, manhattan=True)
 T, states = transition_tensor(env); n = len(states)
 T_G = None
 
@@ -48,7 +50,7 @@ def _solve(args):
     return sp, g, s.prior, s.F[sp], s.policy, s.converged, s.certified()
 
 for beta in BETAS:
-    d = np.load(SWEEP / f"four_rooms-13x13-det-0.97-untwisted-pooled-b-{beta:g}.npz")
+    d = np.load(SWEEP / (f"{TAG}-untwisted-pooled-b-{beta:g}.npz" if DET != 1 else f"{TAG}-pooled-b-{beta:g}.npz"))
     pol, Q, F = d["policies"], d["q"], d["F"]            # pol[g, s, a], Q[g, a], F[s, g]
     N = np.array([occupancy(np.einsum("sa,saj->sj", pol[g], absorb(T, g)), g) for g in range(n)])   # N[g, s, x]
     t0 = time.time()
@@ -88,7 +90,7 @@ for beta in BETAS:
     ok_re = (-D_re <= B + 1e-6) | ~finite
     print(f"  bound finite on {finite.sum()/valid.sum():.4f} of triples; holds for fixed second leg on {ok_fixed[valid].mean():.6f}, for re-optimised on {ok_re[valid].mean():.6f} "
           f"(fails on {(~ok_re & valid).sum()} triples; worst excess {np.max(np.where(finite, -D_re - B, -np.inf)):.4f})")
-    np.savez_compressed(OUT / f"second-leg-reoptimised-b-{beta:g}.npz", F_direct=F, F_re=F_re, q_direct=Q, q_re=q_re, pol_dist=pol_dist, conv=conv, cert=cert)
+    np.savez_compressed(OUT / f"second-leg-reoptimised{"" if DET != 1 else "-det-1"}-b-{beta:g}.npz", F_direct=F, F_re=F_re, q_direct=Q, q_re=q_re, pol_dist=pol_dist, conv=conv, cert=cert)
     summary = dict(beta=beta, pairs=int(off.sum()), converged=float(conv[off].mean()), certified=float(cert[off].mean()),
                    saving=dict(min=float(saving[off].min()), median=float(np.median(saving[off])), mean=float(saving[off].mean()), max=float(saving[off].max()),
                                frac_gt_1e6=float((saving[off] > 1e-6).mean()), frac_gt_0_01=float((saving[off] > 0.01).mean()), frac_gt_0_1=float((saving[off] > 0.1).mean()),
@@ -98,4 +100,4 @@ for beta in BETAS:
                    triples=int(valid.sum()), violations_fixed=int(viol_fixed.sum()), violations_reopt=int(viol_re.sum()), new_violations=int((viol_re & ~viol_fixed).sum()),
                    worst_fixed=float(D_fixed[valid].min()), worst_reopt=float(D_re[valid].min()),
                    bound_finite_frac=float(finite.sum()/valid.sum()), bound_holds_fixed=float(ok_fixed[valid].mean()), bound_holds_reopt=float(ok_re[valid].mean()), bound_fails_reopt=int((~ok_re & valid).sum()))
-    with open(OUT / f"second-leg-reoptimised-b-{beta:g}.json", "w") as fh: json.dump(summary, fh, indent=1)
+    with open(OUT / f"second-leg-reoptimised{"" if DET != 1 else "-det-1"}-b-{beta:g}.json", "w") as fh: json.dump(summary, fh, indent=1)
