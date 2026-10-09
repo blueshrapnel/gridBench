@@ -26,7 +26,7 @@ from gridcore.bridge import build_env_by_id
 from gridcore.info.fixed_point import (absorb, occupancy, solve_self_consistent, solve_fixed_prior, transition_tensor,
                                        free_energy_of_policy, is_deterministic)
 
-OUT = Path(os.environ.get("OUT", "/media/merlin/Dropbox/workbench/topics/switching-costs/figure-code/second-leg-reoptimised"))
+OUT = Path(os.environ.get("OUT", "/media/merlin/Dropbox/workbench/topics/04c-switching-costs/figure-code/second-leg-reoptimised"))
 DET = float(os.environ.get("DET", "1")); SHAPE = int(os.environ.get("SHAPE", "13"))
 TAG = f"four_rooms-{SHAPE}x{SHAPE}-det-{DET:g}"
 SWEEP = Path("/media/merlin/fixed-point-sweep")
@@ -50,8 +50,7 @@ def _pair(args):
     # (2) goal g re-solved for starts at s'
     w = np.zeros(n); w[sp] = 1.0
     s = solve_self_consistent(T_G, g, beta, w, q0=Q_G[g])
-    P = np.einsum("sa,saj->sj", s.policy, absorb(T_G, g)); P[~np.isfinite(s.F)] = 0.0
-    N = occupancy(P, g); T2 = N[sp].sum()
+    N = s.occupancy; T2 = N[sp].sum()                               # the solver's own occupancy, restricted to the journey's reachable states
     v = N[sp] / T2
     return (sp, g, Fq, s.F[sp], s.prior, kl(s.prior, Q_G[g]) * T2 / beta, T2, float(v @ np.abs(s.policy - POL[g]).sum(1)),
             bool(s.converged), bool(s.certified()))
