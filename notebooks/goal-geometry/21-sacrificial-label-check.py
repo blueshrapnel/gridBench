@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Goal-geometry series, 21 — is there a sacrificial label in the evolved 13×13 four rooms?
 #
-# The habits note (workbench 07-habits-twists-frames) says that in some twisted worlds
+# The habits note (workbench 06a-habits-twists-frames) says that in some twisted worlds
 # one action is *sacrificial*: never used by the policy and therefore never refined.
 # At the goal-prior level the dropped labels of the evolved 13×13 four-rooms twists are
 # spread over all four labels (Mac session, 7 Oct 2026), so no label is sacrificed
@@ -42,7 +42,7 @@ from twist_compare import base_world, twisted, chi_twist, EVOLVED, ROOT, SIDE   
 from gridcore.info.fixed_point import absorb, occupancy                           # noqa: E402
 
 SWEEP = Path("/media/merlin/fixed-point-sweep")
-OUT = Path("/media/merlin/Dropbox/workbench/topics/twisted-switching/results/sacrificial-label-check.json")
+OUT = Path("/media/merlin/Dropbox/workbench/topics/06b-twisted-switching/results/sacrificial-label-check.json")
 WORLDS = {"untwisted": None, "random_twist": "random", "evolved_lowest_F": "evolved, lowest F",
           "evolved_high_chi_warm": "evolved, high χ, warm", "evolved_highest_chi": "evolved, highest χ"}
 T0, walk = base_world(); n = len(walk); idx = np.arange(n)

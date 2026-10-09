@@ -31,7 +31,7 @@ from gridcore.bridge import build_env_by_id
 from gridcore.info.fixed_point import absorb, occupancy, solve_self_consistent, transition_tensor, free_energy_of_policy
 
 SWEEP = Path("/media/merlin/fixed-point-sweep")
-OUT = Path("/media/merlin/Dropbox/workbench/topics/switching-costs/figure-code/second-leg-reoptimised")
+OUT = Path("/media/merlin/Dropbox/workbench/topics/04c-switching-costs/figure-code/second-leg-reoptimised")
 BETAS = [float(b) for b in (sys.argv[1:] or ["1", "0.3"])]
 DET = float(os.environ.get("DET", "0.97"))          # 0.97 is the twists setting; the report's own four rooms are deterministic (DET=1)
 TAG = f"four_rooms-13x13-det-{DET:g}"

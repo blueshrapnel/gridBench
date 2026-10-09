@@ -20,7 +20,7 @@ import numpy as np
 from gridcore.bridge import build_env_by_id
 from gridcore.info.fixed_point import absorb, occupancy, transition_tensor, kl_rows
 
-OUT = Path("/media/merlin/Dropbox/workbench/topics/switching-costs/figure-code/second-leg-reoptimised")
+OUT = Path("/media/merlin/Dropbox/workbench/topics/04c-switching-costs/figure-code/second-leg-reoptimised")
 env = build_env_by_id(env_id="four_rooms", shape=(13, 13), goal=0, determinism=1.0, manhattan=True)
 T, _ = transition_tensor(env); n = len(T)
 

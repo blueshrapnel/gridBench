@@ -1,7 +1,7 @@
 # %% [markdown]
 # # Goal-geometry series, 19 — slack, advantage, bound and gap under evolved twists
 #
-# The switching-costs report (workbench/topics/switching-costs, October 2026)
+# The switching-costs report (workbench/topics/04c-switching-costs, October 2026)
 # decomposes the triangle defect of a two-leg journey s -> s' -> g into
 #
 #     defect  =  shared-prior slack  -  prior advantage of the first leg      (report eq. prior-slack)
@@ -28,7 +28,7 @@
 #       residual of the no-early-arrival identity, and does it track p_early?
 #
 # Outputs (figures and JSON) go to the report's figure folder,
-# workbench/topics/switching-costs/figures/twisted-worlds/; the per-triple arrays
+# workbench/topics/04c-switching-costs/figures/twisted-worlds/; the per-triple arrays
 # are cached outside Dropbox in /media/merlin/fixed-point-sweep/switching-twisted/.
 #
 # Run:  OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=gridCore/src:gridBench/src python 19-...py
@@ -57,7 +57,7 @@ except Exception:
 print(f"gridcore: {repo.name} @ {commit}")
 
 FIELDINFO = "/media/merlin/Dropbox/phd/code/fieldInfo/stage2/ba_comparison"      # solver and the 2 Oct twist worlds
-REPORT_FIGS = "/media/merlin/Dropbox/workbench/topics/switching-costs/figure-code"  # the report's grid-drawing style
+REPORT_FIGS = "/media/merlin/Dropbox/workbench/topics/04c-switching-costs/figure-code"  # the report's grid-drawing style
 for p in (FIELDINFO, REPORT_FIGS):
     if p not in sys.path:
         sys.path.insert(0, p)
@@ -72,7 +72,7 @@ from gridbench.functional_graph.label_graphs import label_graphs, walls_and_nonw
 
 REF = os.environ.get("TWISTED_REFERENCE", "pooled")      # "pooled" (the report) or "uniform" (the twists were evolved under it)
 SUFFIX = "" if REF == "pooled" else f"-{REF}"
-OUT = Path("/media/merlin/Dropbox/workbench/topics/switching-costs/figures/twisted-worlds" + SUFFIX)
+OUT = Path("/media/merlin/Dropbox/workbench/topics/04c-switching-costs/figures/twisted-worlds" + SUFFIX)
 CACHE = Path("/media/merlin/fixed-point-sweep/switching-twisted" + SUFFIX)
 OUT.mkdir(parents=True, exist_ok=True); CACHE.mkdir(parents=True, exist_ok=True)
 BETAS = (1.0, 0.3)

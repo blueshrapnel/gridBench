@@ -54,7 +54,7 @@ except Exception:
     commit = "unknown"
 print(f"gridcore: {repo.name} @ {commit}")
 
-OUT = Path("/media/merlin/Dropbox/workbench/topics/twisted-switching")
+OUT = Path("/media/merlin/Dropbox/workbench/topics/06b-twisted-switching")
 FIG, RES = OUT / "figures", OUT / "results"
 FIG.mkdir(parents=True, exist_ok=True); RES.mkdir(parents=True, exist_ok=True)
 CACHE = Path("/media/merlin/fixed-point-sweep/epsilon-twists"); CACHE.mkdir(parents=True, exist_ok=True)
